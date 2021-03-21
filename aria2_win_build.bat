@@ -1,14 +1,3 @@
-#!/bin/bash
-
-# In this configuration, the following dependent libraries are used:
-#
-# * zlib
-# * c-ares
-# * expat
-# * sqlite3
-# * openSSL
-# * libssh2
-
 rm -rf aria2_git
 git clone --depth=1 https://github.com/aria2/aria2.git aria2_git
 copy /y ./patch/src ./aria2_git/
