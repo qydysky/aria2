@@ -95,7 +95,7 @@ jobs:
 
         autoreconf -fi
 
-        test -z "$HOST" && HOST=i686-w64-mingw32
+        test -z "$HOST" && HOST=x86_64-w64-mingw32
         test -z "$PREFIX" && PREFIX=/usr/local/$HOST
 
         ./configure \
