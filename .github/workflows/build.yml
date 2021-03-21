@@ -40,7 +40,7 @@ jobs:
     - name: Build
       run: |
         ./lib_build
-        ./aria2_win_build.sh
+        ./aria2_build.sh
       
     - name: zip
       run: zip -q -r ubuntu.zip *
@@ -66,3 +66,62 @@ jobs:
         asset_name: ubuntu.zip
         # The content-type of the asset you want to upload. See the supported Media Types here: https://www.iana.org/assignments/media-types/media-types.xhtml for more information
         asset_content_type: application/zip
+
+  w-build:
+    name: build_windows
+    needs: Release_Drafter
+    runs-on: windows-latest
+    defaults:
+    run:
+      shell: msys2 {0}
+    steps:
+    - uses: msys2/setup-msys2@v2
+      with:
+        msystem: MINGW64
+        update: true
+        install: >-
+          base-devel
+          git
+
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Build
+      run: |
+        rm -rf aria2_git
+        git clone --depth=1 https://github.com/aria2/aria2.git aria2_git
+        cp -rf ./patch/src ./aria2_git/
+        cd aria2_git
+
+        autoreconf -fi
+
+
+        ./configure \
+            --without-included-gettext \
+            --disable-nls \
+            --with-libcares \
+            --without-gnutls \
+            --without-wintls \
+            --with-openssl \
+            --with-sqlite3 \
+            --without-libxml2 \
+            --with-libexpat \
+            --with-libz \
+            --without-libgmp \
+            --with-libssh2 \
+            --without-libgcrypt \
+            --without-libnettle \
+            ARIA2_STATIC=yes
+
+        make
+        cd ..
+        cp aria2_git/src/aria2c ./aria2c.exe
+        rm -rf aria2_git
+        
+    - name: zip
+      run: .\7za.exe a -r .\windows.zip ./
+      
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v2.2.0
+      with:
+        path: ./windows.zip
