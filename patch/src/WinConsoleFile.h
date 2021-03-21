@@ -38,6 +38,7 @@
 
 #include "OutputFile.h"
 
+#include <windef.h>
 #include <string>
 
 namespace aria2 {
@@ -45,7 +46,7 @@ namespace aria2 {
 // This is a wrapper class for WriteConsoleW
 class WinConsoleFile : public OutputFile {
 public:
-  WinConsoleFile(DWORD);
+  WinConsoleFile(DWORD stdHandle);
   virtual ~WinConsoleFile() {}
 
   virtual size_t write(const char* str) CXX11_OVERRIDE;
