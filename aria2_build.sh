@@ -1,13 +1,6 @@
 #!/bin/bash
 
-# In this configuration, the following dependent libraries are used:
-#
-# * zlib
-# * c-ares
-# * expat
-# * sqlite3
-# * openSSL
-# * libssh2
+sudo apt-get install autoconf automake libtool
 
 cat '/etc/ssl/certs/ca-certificates.crt' > /dev/null
 if [ "$?" -eq 0 ] ; then
@@ -21,7 +14,7 @@ git clone --depth=1 https://github.com/aria2/aria2.git aria2_git
 \cp -rf ./patch/src ./aria2_git/
 cd aria2_git
 
-./autoreconf -fi
+autoreconf -fi
 
 ## BUILD ##
 ./configure \
