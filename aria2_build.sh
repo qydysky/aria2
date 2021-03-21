@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo apt-get install autoconf automake libtool
+sudo apt-get install autopoint gettext
 
 cat '/etc/ssl/certs/ca-certificates.crt' > /dev/null
 if [ "$?" -eq 0 ] ; then
@@ -11,7 +11,7 @@ fi
 
 rm -rf aria2_git
 git clone --depth=1 https://github.com/aria2/aria2.git aria2_git
-\cp -rf ./patch/src ./aria2_git/
+yes|cp -rf ./patch/src ./aria2_git/
 cd aria2_git
 
 autoreconf -fi
