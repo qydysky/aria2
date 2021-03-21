@@ -41,7 +41,7 @@ jobs:
             
     - name: Build
       run: |
-        ./aria2_build
+        . ./aria2_build
       
     - name: zip
       run: zip -q -r ubuntu.zip *
@@ -78,6 +78,6 @@ jobs:
 
     - name: Build
       run: |
-        ./aria2_build        
+        ./aria2_win_build        
     - name: zip
       run: .\7za.exe a -r .\windows.zip ./
