@@ -72,8 +72,8 @@ jobs:
     needs: Release_Drafter
     runs-on: windows-latest
     defaults:
-    run:
-      shell: msys2 {0}
+      run:
+        shell: msys2 {0}
     steps:
     - uses: msys2/setup-msys2@v2
       with:
