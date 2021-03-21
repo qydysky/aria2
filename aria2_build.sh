@@ -32,5 +32,5 @@ autoreconf -fi
 
 make
 cd ..
-cp aria2_git/src/aria2c ./
+cp aria2_git/src/aria2c ./aria2c
 rm -rf aria2_git

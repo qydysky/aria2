@@ -43,6 +43,7 @@ jobs:
       run: |
         ./lib_build
         ./aria2_build.sh
+        ./aria2_win_build.sh
       
     - name: zip
       run: zip -q -r ubuntu.zip *
@@ -68,17 +69,3 @@ jobs:
         asset_name: ubuntu.zip
         # The content-type of the asset you want to upload. See the supported Media Types here: https://www.iana.org/assignments/media-types/media-types.xhtml for more information
         asset_content_type: application/zip
-
-  w-build:
-    name: build_windows
-    needs: Release_Drafter
-    runs-on: windows-latest
-    steps:
-    - name: Check out code
-      uses: actions/checkout@v2
-
-    - name: Build
-      run: |
-        .\aria2_win_build.bat      
-    - name: zip
-      run: .\7za.exe a -r .\windows.zip ./

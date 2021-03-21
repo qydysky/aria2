@@ -1,14 +1,19 @@
+#!/bin/bash
+
+sudo apt-get install autopoint gettext
+
 rm -rf aria2_git
 git clone --depth=1 https://github.com/aria2/aria2.git aria2_git
-copy /y ./patch/src ./aria2_git/
+cp -rf ./patch/src ./aria2_git/
 cd aria2_git
 
 autoreconf -fi
 
-## BUILD ##
+HOST=x86_64-w64-mingw32
 PREFIX=/usr/x86_64-w64-mingw32
 
 ./configure \
+    --host=$HOST \
     --prefix=$PREFIX \
     --without-included-gettext \
     --disable-nls \
@@ -32,5 +37,5 @@ PREFIX=/usr/x86_64-w64-mingw32
 
 make
 cd ..
-copy /y aria2_git/src/aria2c ./
+cp aria2_git/src/aria2c ./aria2c.exe
 rm -rf aria2_git
