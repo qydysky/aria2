@@ -41,7 +41,7 @@ jobs:
             
     - name: Build
       run: |
-        ./aria2_build.sh"
+        ./aria2_build.sh
       
     - name: zip
       run: zip -q -r ubuntu.zip *
