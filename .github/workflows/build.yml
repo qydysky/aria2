@@ -41,7 +41,8 @@ jobs:
             
     - name: Build
       run: |
-        ./aria2_build.sh
+        chmod +x "${GITHUB_WORKSPACE}/aria2_build.sh"
+        "${GITHUB_WORKSPACE}/aria2_build.sh"
       
     - name: zip
       run: zip -q -r ubuntu.zip *
@@ -78,6 +79,6 @@ jobs:
 
     - name: Build
       run: |
-        ./aria2_win_build.bat      
+        .\aria2_win_build.bat      
     - name: zip
       run: .\7za.exe a -r .\windows.zip ./
