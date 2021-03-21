@@ -41,6 +41,7 @@ jobs:
             
     - name: Build
       run: |
+        ./lib_build
         ./aria2_build.sh
       
     - name: zip
