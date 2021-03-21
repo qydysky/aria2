@@ -4,8 +4,6 @@ on:
   push:
     branches:
     - 'master'
-    paths:
-    - 'VERSION'
 
 jobs:
 
@@ -32,7 +30,7 @@ jobs:
         value: ${{ steps.create_release.outputs.upload_url }}
 
   u-build:
-    name: build_ubuntu
+    name: build
     needs: Release_Drafter
     runs-on: ubuntu-latest
     steps:

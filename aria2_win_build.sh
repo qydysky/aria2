@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo apt-get install autopoint gettext build-essential flex libelf-dev libc6-dev-amd64 binutils-dev libdwarf-dev
+sudo apt-get install autopoint gettext build-essential flex libelf-dev binutils-dev libdwarf-dev
 
 rm -rf aria2_git
 git clone --depth=1 https://github.com/aria2/aria2.git aria2_git
