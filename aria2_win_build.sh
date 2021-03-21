@@ -9,8 +9,12 @@ cd aria2_git
 
 autoreconf -fi
 
+test -z "$HOST" && HOST=i686-w64-mingw32
+test -z "$PREFIX" && PREFIX=/usr/local/$HOST
 
 ./configure \
+    --host=$HOST \
+    --prefix=$PREFIX \
     --without-included-gettext \
     --disable-nls \
     --with-libcares \
@@ -25,7 +29,12 @@ autoreconf -fi
     --with-libssh2 \
     --without-libgcrypt \
     --without-libnettle \
-    ARIA2_STATIC=yes
+    --with-cppunit-prefix=$PREFIX \
+    ARIA2_STATIC=yes \
+    CPPFLAGS="-I$PREFIX/include" \
+    LDFLAGS="-L$PREFIX/lib" \
+    PKG_CONFIG="/usr/bin/pkg-config" \
+    PKG_CONFIG_PATH="$PREFIX/lib/pkgconfig"
 
 make
 cd ..
