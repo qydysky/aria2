@@ -1,7 +1,5 @@
 #!/bin/bash
 
-sudo apt-get install autopoint gettext build-essential flex libelf-dev binutils-dev libdwarf-dev
-
 rm -rf aria2_git
 git clone --depth=1 https://github.com/aria2/aria2.git aria2_git
 cp -rf ./patch/src ./aria2_git/
@@ -9,8 +7,8 @@ cd aria2_git
 
 autoreconf -fi
 
-HOST=x86_64-w64-mingw32
-PREFIX=/usr/x86_64-w64-mingw32
+test -z "$HOST" && HOST=i686-w64-mingw32
+test -z "$PREFIX" && PREFIX=/usr/local/$HOST
 
 ./configure \
     --host=$HOST \
@@ -33,6 +31,7 @@ PREFIX=/usr/x86_64-w64-mingw32
     ARIA2_STATIC=yes \
     CPPFLAGS="-I$PREFIX/include" \
     LDFLAGS="-L$PREFIX/lib" \
+    PKG_CONFIG="/usr/bin/pkg-config" \
     PKG_CONFIG_PATH="$PREFIX/lib/pkgconfig"
 
 make
