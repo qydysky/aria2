@@ -1,0 +1,10 @@
+#!/bin/bash
+ 
+cd libs
+
+./c-ares
+./expat
+./libssh2
+./openssl
+./sqlite3
+./zlib

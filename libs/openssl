@@ -1,0 +1,10 @@
+#!/bin/bash
+
+rm -rf openssl_git
+git clone --depth=1 https://github.com/openssl/openssl.git openssl_git
+cd openssl_git
+./Configure
+make
+sudo make install
+cd ..
+rm -rf openssl_git

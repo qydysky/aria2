@@ -1,0 +1,11 @@
+#!/bin/bash
+
+rm -rf libexpat_git
+git clone --depth=1 https://github.com/libexpat/libexpat.git libexpat_git
+cd libexpat_git/expat
+./buildconf.sh
+./configure --enable-static --enable-shared
+make
+sudo make install
+cd ../../
+rm -rf libexpat_git 

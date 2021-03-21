@@ -1,0 +1,10 @@
+#!/bin/bash
+
+rm -rf sqlite_git
+git clone --depth=1 https://github.com/sqlite/sqlite.git sqlite_git
+cd sqlite_git
+./configure --enable-static --enable-shared
+make
+sudo make install
+cd ../../
+rm -rf sqlite_git 

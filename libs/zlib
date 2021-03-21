@@ -1,0 +1,10 @@
+#!/bin/bash
+
+rm -rf zlib_git
+git clone --depth=1 https://github.com/madler/zlib.git zlib_git
+cd zlib_git
+./configure --static
+make
+sudo make install
+cd ..
+rm -rf zlib_git
