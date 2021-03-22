@@ -91,6 +91,8 @@ jobs:
           mingw-w64-x86_64-libxml2
           mingw-w64-x86_64-openssl
           mingw-w64-x86_64-sqlite3
+          mingw-w64-x86_64-gcc
+          mingw-w64-x86_64-winpthreads
           mingw-w64-x86_64-expat
           mingw-w64-x86_64-zlib
           mingw-w64-x86_64-libtool
@@ -100,8 +102,7 @@ jobs:
 
     - name: Build
       run: |
-        export MINGW_PACKAGE_PREFIX=mingw-w64-x86_64
-        export HOST=x86_64-w64-x86_64
+        export HOST=x86_64-w64-mingw32
         export PREFIX=/usr/local/$HOST
 
         rm -rf aria2_git
