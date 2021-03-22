@@ -167,17 +167,15 @@ jobs:
 
     - name: Build
       run: |
-        export packages=$(apt-cache search -n \
-        mingw-w64 || \
-        cppunit || \
-        gmp || \
-        c-ares || \
-        expat || \
-        libssh2 || \
-        sqlite3 || \
-        zlib || \
-        autopoint \
-        | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$(apt-cache search -n mingw-w64 | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n cppunit | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n gmp | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n c-ares | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n expat | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n libssh2 | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n sqlite3 | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n zlib | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n autopoint | cut -d " " -f 1 | tr "\n" " ")
 
         sudo apt-get install $packages
 
@@ -185,7 +183,7 @@ jobs:
         cd aria2_git
         git apply ../patch/1.patch
 
-        autoreconf -fi || autoreconf -fiv
+        autoreconf -fi
         HOST=x86_64-w64-mingw32 ./mingw-config
 
         make
