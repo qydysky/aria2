@@ -50,18 +50,18 @@ rm -rf libexpat_git
 # #expat
 
 # #sql
-# rm -rf sqlite_git
-# git clone --depth=1 https://github.com/sqlite/sqlite.git sqlite_git
-# cd sqlite_git
-# ./configure \
-#     --disable-shared \
-#     --enable-static \
-#     --prefix=/usr/local/$HOST \
-#     --host=$HOST
-# make
-# make install
-# cd ../
-# rm -rf sqlite_git 
+rm -rf sqlite_git
+git clone --depth=1 https://github.com/sqlite/sqlite.git sqlite_git
+cd sqlite_git
+./configure \
+    --disable-shared \
+    --enable-static \
+    --prefix=/usr/local/$HOST \
+    --host=$HOST
+make
+make install
+cd ../
+rm -rf sqlite_git 
 # #sql
 
 rm -rf aria2_git

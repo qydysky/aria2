@@ -90,7 +90,6 @@ jobs:
           mingw-w64-x86_64-libuv
           mingw-w64-x86_64-libxml2
           mingw-w64-x86_64-openssl
-          mingw-w64-x86_64-sqlite3
           mingw-w64-x86_64-zlib
           libtool
 
