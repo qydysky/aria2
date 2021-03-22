@@ -93,6 +93,7 @@ jobs:
           mingw-w64-x86_64-gcc
           mingw-w64-x86_64-winpthreads
           mingw-w64-x86_64-expat
+          libexpat-devel
           mingw-w64-x86_64-zlib
           mingw-w64-x86_64-libtool
 
