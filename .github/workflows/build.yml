@@ -83,7 +83,6 @@ jobs:
           base-devel
           zlib-devel
           sqlite
-          git
           unzip
           zip
           tar
