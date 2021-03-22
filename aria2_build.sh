@@ -11,8 +11,8 @@ fi
 
 rm -rf aria2_git
 git clone --depth=1 https://github.com/aria2/aria2.git aria2_git
-cp -rf ./patch/src ./aria2_git/
 cd aria2_git
+git apply ../patch/1.patch
 
 autoreconf -fi
 
