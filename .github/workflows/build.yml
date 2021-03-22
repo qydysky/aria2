@@ -82,6 +82,7 @@ jobs:
         install: >-
           base-devel
           mingw-w64-x86_64-c-ares
+          libcares-devel
           mingw-w64-x86_64-cppunit
           mingw-w64-x86_64-gcc-libs
           mingw-w64-x86_64-gettext
