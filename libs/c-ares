@@ -4,8 +4,15 @@ rm -rf c-ares_git
 git clone --depth=1 https://github.com/c-ares/c-ares.git c-ares_git
 cd c-ares_git
 autoreconf -fi
-./configure --enable-static --disable-shared
-make
-sudo make install
+./configure \
+    --disable-shared \
+    --enable-static \
+    --without-random \
+    --disable-tests \
+    --prefix=/usr/local/$HOST \
+    --host=$HOST
+
+CPUCOUNT=$(grep -c ^processor /proc/cpuinfo)
+make install -j$CPUCOUNT
 cd ..
 rm -rf c-ares_git
