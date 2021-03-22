@@ -169,7 +169,7 @@ jobs:
       run: |
         export packages=$(apt-cache search -n mingw-w64 | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n cppunit | cut -d " " -f 1 | tr "\n" " ")
-        export packages=$packages$(apt-cache search -n gmp | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages libgmp-dev
         export packages=$packages$(apt-cache search -n c-ares | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n expat | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n libssh2 | cut -d " " -f 1 | tr "\n" " ")
