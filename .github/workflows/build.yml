@@ -173,10 +173,11 @@ jobs:
         export packages=$packages$(apt-cache search -n libssh2 | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n sqlite3 | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n autopoint | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n libc6-dev-amd64 | cut -d " " -f 1 | tr "\n" " ")
 
         sudo apt-get install $packages
-        sudo apt-get install build-essential flex libelf-dev libc6-dev-amd64 binutils-dev libdwarf-dev
-        
+        sudo apt-get install build-essential flex libelf-dev binutils-dev libdwarf-dev
+
         # #c-ares
         rm -rf c-ares_git
         git clone --depth=1 https://github.com/c-ares/c-ares.git c-ares_git
