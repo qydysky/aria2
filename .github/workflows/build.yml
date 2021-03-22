@@ -84,6 +84,7 @@ jobs:
           git
           zlib
           libtool
+          libssh2-devel
 
     - name: Check out code
       uses: actions/checkout@v2

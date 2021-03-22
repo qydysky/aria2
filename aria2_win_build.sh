@@ -49,24 +49,6 @@ cd ../../
 rm -rf libexpat_git 
 #expat
 
-#libssh2
-rm -rf libssh2_git
-git clone --depth=1 https://github.com/libssh2/libssh2.git libssh2_git
-cd libssh2_git
-autoreconf -fi
-./configure \
-    --disable-shared \
-    --enable-static \
-    --prefix=/usr/local/$HOST \
-    --host=$HOST \
-    --with-crypto=wincng \
-    LIBS="-lws2_32"
-make
-make install
-cd ../
-rm -rf libssh2_git
-#libssh2
-
 #sql
 rm -rf sqlite_git
 git clone --depth=1 https://github.com/sqlite/sqlite.git sqlite_git
