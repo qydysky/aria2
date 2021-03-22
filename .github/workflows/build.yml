@@ -95,6 +95,14 @@ jobs:
     - name: zip
       run: ./7za.exe a -r ./windows.zip ./
       
+    - name: get upload_url
+      id: get_upload_url
+      uses: noobly314/share-data@v1
+      with:
+        share-id: release_url
+        mode: get
+        key: url
+
     - name: Upload a Release Asset
       uses: actions/upload-release-asset@v1.0.2
       env:
