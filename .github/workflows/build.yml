@@ -169,7 +169,6 @@ jobs:
       run: |
         export packages=$(apt-cache search -n mingw-w64 | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n cppunit | cut -d " " -f 1 | tr "\n" " ")
-        export packages=$packages libgmp-dev
         export packages=$packages$(apt-cache search -n c-ares | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n expat | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n libssh2 | cut -d " " -f 1 | tr "\n" " ")
@@ -177,6 +176,7 @@ jobs:
         export packages=$packages$(apt-cache search -n autopoint | cut -d " " -f 1 | tr "\n" " ")
 
         sudo apt-get install $packages
+        sudo apt-get install libgmp-dev
 
         git clone --depth=1 https://github.com/aria2/aria2.git aria2_git
         cd aria2_git
