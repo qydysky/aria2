@@ -118,7 +118,9 @@ jobs:
         cd aria2_git
         git apply ../patch/1.patch
 
+        autoreconf -fi || autoreconf -fiv
         HOST=x86_64-w64-mingw32 ./mingw-config
+
         make
         cd ../
         cp aria2_git/src/aria2c* ./
