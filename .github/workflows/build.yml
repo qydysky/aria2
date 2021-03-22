@@ -101,7 +101,7 @@ jobs:
     - name: Build
       run: |
         export MINGW_PACKAGE_PREFIX=mingw-w64-x86_64
-        export HOST=x86_64-w64-mingw32
+        export HOST=x86_64-w64-x86_64
         export PREFIX=/usr/local/$HOST
 
         rm -rf aria2_git
