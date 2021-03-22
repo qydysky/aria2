@@ -45,10 +45,11 @@ git clone --depth=1 https://github.com/libssh2/libssh2.git libssh2_git
 cd libssh2_git
 autoreconf -fi
 ./configure \
-    --disable-shared \
+    --without-libgcrypt \
+    --with-openssl \
+    --without-wincng \
     --enable-static \
-    --with-crypto=wincng \
-    LIBS="-lws2_32"
+    --disable-shared
 
 make install -j$CPUCOUNT
 cd ../

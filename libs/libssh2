@@ -4,13 +4,8 @@ rm -rf libssh2_git
 git clone --depth=1 https://github.com/libssh2/libssh2.git libssh2_git
 cd libssh2_git
 autoreconf -fi
-./configure \
-    --prefix=/usr/local/$HOST \
-    --host=$HOST \
-    --with-crypto=wincng \
-    LIBS="-lws2_32"
-
-CPUCOUNT=$(grep -c ^processor /proc/cpuinfo)
-make install -j$CPUCOUNT
+./configure --without-libgcrypt --with-openssl --without-wincng --prefix=$PREFIX --enable-static --disable-shared
+make
+sudo make install
 cd ..
 rm -rf libssh2_git
