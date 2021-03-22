@@ -70,10 +70,10 @@ jobs:
     name: build_windows
     needs: Release_Drafter
     runs-on: windows-latest
-    defaults:
-      run:
-        shell: msys2 {0}
     steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
     - name: Build
       run: |
         rm -rf aria2_git
@@ -109,6 +109,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Build
+      shell: msys2 {0}
       run: |
         export HOST=x86_64-w64-mingw32
         export PREFIX=/usr/local/$HOST
