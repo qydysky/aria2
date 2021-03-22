@@ -169,6 +169,7 @@ jobs:
       run: |
         export packages=$(apt-cache search -n mingw-w64 | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n cppunit | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n gmp | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n c-ares | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n expat | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n libssh2 | cut -d " " -f 1 | tr "\n" " ")
@@ -176,14 +177,37 @@ jobs:
         export packages=$packages$(apt-cache search -n autopoint | cut -d " " -f 1 | tr "\n" " ")
 
         sudo apt-get install $packages
-        sudo apt-get install libgmp-dev
 
         git clone --depth=1 https://github.com/aria2/aria2.git aria2_git
         cd aria2_git
         git apply ../patch/1.patch
 
         autoreconf -fi
-        HOST=x86_64-w64-mingw32 ./mingw-config
+        export HOST=x86_64-w64-mingw32
+        export PREFIX=/usr/local/$HOST
+
+        ./configure \
+            --host=$HOST \
+            --prefix=$PREFIX \
+            --without-included-gettext \
+            --disable-nls \
+            --with-libcares \
+            --without-gnutls \
+            --without-openssl \
+            --with-sqlite3 \
+            --without-libxml2 \
+            --with-libexpat \
+            --with-libz \
+            --without-libgmp \
+            --with-libssh2 \
+            --without-libgcrypt \
+            --without-libnettle \
+            --with-cppunit-prefix=$PREFIX \
+            ARIA2_STATIC=yes \
+            CPPFLAGS="-I$PREFIX/include" \
+            LDFLAGS="-L$PREFIX/lib" \
+            PKG_CONFIG="/usr/bin/pkg-config" \
+            PKG_CONFIG_PATH="$PREFIX/lib/pkgconfig"
 
         make
         cd ../
