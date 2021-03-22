@@ -87,6 +87,7 @@ jobs:
           mingw-w64-x86_64-gettext
           mingw-w64-x86_64-libiconv
           mingw-w64-x86_64-libssh2
+          libssh2-devel
           mingw-w64-x86_64-libuv
           mingw-w64-x86_64-openssl
           mingw-w64-x86_64-sqlite3
