@@ -77,7 +77,6 @@ jobs:
     - uses: msys2/setup-msys2@v2
       with:
         msystem: MINGW64
-        path-type: inherit
         update: true
         install: >-
           base-devel
@@ -97,6 +96,7 @@ jobs:
           mingw-w64-x86_64-expat
           mingw-w64-x86_64-zlib
           mingw-w64-x86_64-libtool
+          mingw-w64-x86_64-nettle
 
     - name: Check out code
       uses: actions/checkout@v2
