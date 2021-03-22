@@ -189,7 +189,7 @@ jobs:
             --prefix=/usr/local/$HOST \
             --host=$HOST
         make
-        make install
+        sudo make install
         cd ../
         rm -rf c-ares_git
         # #c-ares
