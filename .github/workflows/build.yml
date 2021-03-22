@@ -89,7 +89,6 @@ jobs:
           mingw-w64-x86_64-libiconv
           mingw-w64-x86_64-libssh2
           mingw-w64-x86_64-libuv
-          mingw-w64-x86_64-libxml2
           mingw-w64-x86_64-openssl
           mingw-w64-x86_64-sqlite3
           mingw-w64-x86_64-gcc
@@ -119,7 +118,7 @@ jobs:
             --without-gnutls \
             --with-openssl \
             --with-sqlite3 \
-            --with-libxml2 \
+            --without-libxml2 \
             --with-libexpat \
             --with-libz \
             --with-libgmp \
