@@ -74,9 +74,8 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v2
 
-    - name: Build
+    - name: Apply aria2 patch
       run: |
-        rm -rf aria2_git
         git clone --depth=1 https://github.com/aria2/aria2.git aria2_git
         cd aria2_git
         git apply ../patch/1.patch
