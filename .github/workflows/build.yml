@@ -203,7 +203,10 @@ jobs:
         autoreconf -fi
         export HOST=x86_64-w64-mingw32
         export PREFIX=/usr/local/$HOST
-
+        export CFLAGS=-I/usr/include/x86_64-linux-gnu
+        export CXXFLAGS=-I/usr/include/x86_64-linux-gnu
+        find /usr/include -name socket.h
+        
         ./configure \
             --host=$HOST \
             --prefix=$PREFIX \
