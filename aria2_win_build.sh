@@ -28,7 +28,7 @@ autoreconf -fi
     --prefix=/usr/local/$HOST \
     --host=$HOST
 make
-sudo make install
+make install
 cd ../
 rm -rf c-ares_git
 #c-ares
@@ -44,7 +44,7 @@ cd libexpat_git/expat
     --prefix=/usr/local/$HOST \
     --host=$HOST
 make
-sudo make install
+make install
 cd ../../
 rm -rf libexpat_git 
 #expat
@@ -62,7 +62,7 @@ autoreconf -fi
     --with-crypto=wincng \
     LIBS="-lws2_32"
 make
-sudo make install
+make install
 cd ../
 rm -rf libssh2_git
 #libssh2
@@ -77,7 +77,7 @@ cd sqlite_git
     --prefix=/usr/local/$HOST \
     --host=$HOST
 make
-sudo make install
+make install
 cd ../
 rm -rf sqlite_git 
 #sql

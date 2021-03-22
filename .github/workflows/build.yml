@@ -83,6 +83,7 @@ jobs:
           base-devel
           git
           zlib
+          libtool
 
     - name: Check out code
       uses: actions/checkout@v2
