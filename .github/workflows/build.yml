@@ -167,9 +167,9 @@ jobs:
 
     - name: Build
       run: |
-        export mingw_w64_packages=$(apt-cache search mingw-w64 | cut -d " " -f 1 | tr "\n" " ")
-        export cppunit_packages=$(apt-cache search cppunit | cut -d " " -f 1 | tr "\n" " ")
-        export gmp_packages=$(apt-cache search gmp | cut -d " " -f 1 | tr "\n" " ")
+        export mingw_w64_packages=$(apt-cache search -n mingw-w64 | cut -d " " -f 1 | tr "\n" " ")
+        export cppunit_packages=$(apt-cache search -n cppunit | cut -d " " -f 1 | tr "\n" " ")
+        export gmp_packages=$(apt-cache search -n gmp | cut -d " " -f 1 | tr "\n" " ")
 
         sudo apt-get install $mingw_w64_packages $cppunit_packages $gmp_packages
 
