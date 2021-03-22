@@ -84,6 +84,7 @@ jobs:
       with:
         msystem: MINGW64
         update: true
+        path-type: inherit
         install: >-
           base-devel
           mingw-w64-x86_64-pkg-config
@@ -103,7 +104,7 @@ jobs:
           mingw-w64-x86_64-zlib
           mingw-w64-x86_64-libtool
           mingw-w64-x86_64-nettle
-          
+
     - name: Build
       shell: msys2 {0}
       run: |
