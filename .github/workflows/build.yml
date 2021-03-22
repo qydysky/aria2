@@ -69,51 +69,76 @@ jobs:
   w-build:
     name: build_windows
     needs: Release_Drafter
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
     - name: Check out code
       uses: actions/checkout@v2
 
-    - uses: msys2/setup-msys2@v2
-      with:
-        msystem: MINGW64
-        update: true
-        path-type: inherit
-        install: >-
-          base-devel
-          zlib-devel
-          sqlite
-          unzip
-          zip
-          tar
-          gmp
-          gmp-devel
-          libssh2
-          openssl-devel
-          mingw-w64-x86_64-c-ares
-          pkg-config
-          mingw-w64-x86_64-pkg-config
-          libcares-devel
-          mingw-w64-x86_64-cppunit
-          mingw-w64-x86_64-gcc-libs
-          mingw-w64-x86_64-gettext
-          mingw-w64-x86_64-libiconv
-          mingw-w64-x86_64-libssh2
-          libssh2-devel
-          mingw-w64-x86_64-libuv
-          mingw-w64-x86_64-openssl
-          mingw-w64-x86_64-sqlite3
-          libsqlite-devel
-          mingw-w64-x86_64-gcc
-          mingw-w64-x86_64-winpthreads
-          mingw-w64-x86_64-expat
-          libexpat-devel
-          mingw-w64-x86_64-zlib
-          mingw-w64-x86_64-libtool
-
     - name: Build
-      shell: msys2 {0}
       run: |
+        sudo apt-get install autopoint gettext
+
+        #c-ares
+        rm -rf c-ares_git
+        git clone --depth=1 https://github.com/c-ares/c-ares.git c-ares_git
+        cd c-ares_git
+        autoreconf -fi
+        ./configure \
+            --disable-shared \
+            --enable-static \
+            --without-random \
+            --disable-tests 
+
+        make
+        sudo make install
+        cd ../
+        rm -rf c-ares_git
+        #c-ares
+
+        #expat
+        rm -rf libexpat_git
+        git clone --depth=1 https://github.com/libexpat/libexpat.git libexpat_git
+        cd libexpat_git/expat
+        ./buildconf.sh
+        ./configure \
+            --disable-shared \
+            --enable-static 
+        make
+        sudo make install
+        cd ../../
+        rm -rf libexpat_git 
+        #expat
+
+        #libssh2
+        rm -rf libssh2_git
+        git clone --depth=1 https://github.com/libssh2/libssh2.git libssh2_git
+        cd libssh2_git
+        autoreconf -fi
+        ./configure \
+            --without-libgcrypt \
+            --with-openssl \
+            --without-wincng \
+            --enable-static \
+            --disable-shared
+        make
+        sudo make install
+        cd ../
+        rm -rf libssh2_git
+        #libssh2
+
+        #sql
+        rm -rf sqlite_git
+        git clone --depth=1 https://github.com/sqlite/sqlite.git sqlite_git
+        cd sqlite_git
+        ./configure \
+            --disable-shared \
+            --enable-static 
+        make
+        sudo make install
+        cd ../
+        rm -rf sqlite_git 
+        #sql
+
         git clone --depth=1 https://github.com/aria2/aria2.git aria2_git
         cd aria2_git
         git apply ../patch/1.patch
@@ -126,9 +151,8 @@ jobs:
         cp aria2_git/src/aria2c* ./
         rm -rf aria2_git
 
-
     - name: zip
-      run: ./7za.exe a -r ./windows.zip ./
+      run: zip -q -r windows.zip *
       
     - name: get upload_url
       id: get_upload_url
