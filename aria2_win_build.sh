@@ -14,7 +14,6 @@ pacman -S --noconfirm --needed $MINGW_PACKAGE_PREFIX-gcc \
     $MINGW_PACKAGE_PREFIX-winpthreads
 
 PREFIX=/usr/local/$HOST
-CPUCOUNT=$(grep -c ^processor /proc/cpuinfo)
 
 #c-ares
 rm -rf c-ares_git
@@ -28,8 +27,8 @@ autoreconf -fi
     --disable-tests \
     --prefix=/usr/local/$HOST \
     --host=$HOST
-
-make install -j$CPUCOUNT
+make
+sudo make install
 cd ../
 rm -rf c-ares_git
 #c-ares
@@ -44,8 +43,8 @@ cd libexpat_git/expat
     --enable-static \
     --prefix=/usr/local/$HOST \
     --host=$HOST
-    
-make install -j$CPUCOUNT
+make
+sudo make install
 cd ../../
 rm -rf libexpat_git 
 #expat
@@ -62,8 +61,8 @@ autoreconf -fi
     --host=$HOST \
     --with-crypto=wincng \
     LIBS="-lws2_32"
-
-make install -j$CPUCOUNT
+make
+sudo make install
 cd ../
 rm -rf libssh2_git
 #libssh2
@@ -77,8 +76,8 @@ cd sqlite_git
     --enable-static \
     --prefix=/usr/local/$HOST \
     --host=$HOST
-
-make install -j$CPUCOUNT
+make
+sudo make install
 cd ../
 rm -rf sqlite_git 
 #sql
@@ -110,7 +109,7 @@ autoreconf -fi || autoreconf -fiv
     CPPFLAGS="-I$PREFIX/include" \
     LDFLAGS="-L$PREFIX/lib -Wl,--gc-sections,--build-id=none" \
     PKG_CONFIG_PATH="$PREFIX/lib/pkgconfig"
-make -j$CPUCOUNT
+make
 cd ..
 cp aria2_git/src/aria2c* ./
 rm -rf aria2_git

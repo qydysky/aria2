@@ -1,4 +1,5 @@
 #!/bin/bash
+set -o errexit
 
 sudo apt-get install autopoint gettext
 
@@ -8,6 +9,8 @@ CRT='/etc/ssl/certs/ca-certificates.crt'
 else
 CRT='./certs/ca-certificates.crt'
 fi
+
+# CPUCOUNT=$(grep -c ^processor /proc/cpuinfo)
 
 #c-ares
 rm -rf c-ares_git
@@ -20,7 +23,8 @@ autoreconf -fi
     --without-random \
     --disable-tests 
 
-sudo make install -j$CPUCOUNT
+make
+sudo make install
 cd ../
 rm -rf c-ares_git
 #c-ares
@@ -33,8 +37,8 @@ cd libexpat_git/expat
 ./configure \
     --disable-shared \
     --enable-static 
-    
-sudo make install -j$CPUCOUNT
+make
+sudo make install
 cd ../../
 rm -rf libexpat_git 
 #expat
@@ -50,8 +54,8 @@ autoreconf -fi
     --without-wincng \
     --enable-static \
     --disable-shared
-
-sudo make install -j$CPUCOUNT
+make
+sudo make install
 cd ../
 rm -rf libssh2_git
 #libssh2
@@ -63,8 +67,8 @@ cd sqlite_git
 ./configure \
     --disable-shared \
     --enable-static 
-
-sudo make install -j$CPUCOUNT
+make
+sudo make install
 cd ../
 rm -rf sqlite_git 
 #sql
@@ -90,7 +94,7 @@ autoreconf -fi
     ARIA2_STATIC=yes \
     --enable-shared=no
 
-make -j$CPUCOUNT
+make
 cd ..
 cp aria2_git/src/aria2c* ./
 rm -rf aria2_git
