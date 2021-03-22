@@ -167,7 +167,7 @@ jobs:
 
     - name: Build
       run: |
-        sudo apt-get install \
+        for package in \
           binutils-mingw-w64 \
           binutils-mingw-w64-i686 \
           binutils-mingw-w64-x86-64 \
@@ -203,9 +203,12 @@ jobs:
           mingw-w64-common \
           mingw-w64-i686-dev \
           mingw-w64-tools \
-          mingw-w64-x86-64-dev
+          mingw-w64-x86-64-dev \
+          ;do
+            sudo apt-get install $package
+          done
 
-        sudo apt-get install \
+        for package in \
           autopoint \
           gettext \
           libgmp-dev \
@@ -220,7 +223,10 @@ jobs:
           libcunit1-doc \
           libcunit1-ncurses \
           libcunit1-ncurses-dev \
- 
+          ;do
+            sudo apt-get install $package
+          done
+          
         #c-ares
         rm -rf c-ares_git
         git clone --depth=1 https://github.com/c-ares/c-ares.git c-ares_git
