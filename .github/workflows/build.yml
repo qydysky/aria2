@@ -81,7 +81,19 @@ jobs:
         path-type: inherit
         install: >-
           base-devel
+          zlib-devel
+          sqlite
+          git
+          unzip
+          zip
+          tar
+          gmp
+          gmp-devel
+          libssh2
+          openssl-devel
           mingw-w64-x86_64-c-ares
+          pkg-config
+          mingw-w64-x86_64-pkg-config
           libcares-devel
           mingw-w64-x86_64-cppunit
           mingw-w64-x86_64-gcc-libs
