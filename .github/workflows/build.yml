@@ -74,18 +74,14 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v2
 
-    - name: Apply aria2 patch
-      run: |
-        git clone --depth=1 https://github.com/aria2/aria2.git aria2_git
-        cd aria2_git
-        git apply ../patch/1.patch
-
     - uses: msys2/setup-msys2@v2
       with:
         msystem: MINGW64
         update: true
+        path-type: inherit
         install: >-
           base-devel
+          mingw-w64-x86_64-pkg-config
           mingw-w64-x86_64-c-ares
           mingw-w64-x86_64-cppunit
           mingw-w64-x86_64-gcc-libs
@@ -103,8 +99,13 @@ jobs:
           mingw-w64-x86_64-libtool
           mingw-w64-x86_64-nettle
 
-    - shell: msys2 {0}
+    - name: Build
+      shell: msys2 {0}
       run: |
+        git clone --depth=1 https://github.com/aria2/aria2.git aria2_git
+        cd aria2_git
+        git apply ../patch/1.patch
+
         export HOST=x86_64-w64-mingw32
         export PREFIX=/usr/local/$HOST
 
