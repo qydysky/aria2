@@ -175,7 +175,6 @@ jobs:
         export packages=$packages$(apt-cache search -n autopoint | cut -d " " -f 1 | tr "\n" " ")
 
         sudo apt-get install $packages
-        sudo apt-get install libc-ares-dev 
 
         # #c-ares
         rm -rf c-ares_git
