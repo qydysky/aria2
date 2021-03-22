@@ -93,7 +93,7 @@ jobs:
         ./aria2_win_build.sh
 
     - name: zip
-      run: zip -q -r ubuntu.zip *
+      run: ./7za.exe a -r ./windows.zip ./
       
     - name: Upload a Release Asset
       uses: actions/upload-release-asset@v1.0.2
