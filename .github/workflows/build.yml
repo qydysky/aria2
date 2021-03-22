@@ -74,6 +74,13 @@ jobs:
       run:
         shell: msys2 {0}
     steps:
+    - name: Build
+      run: |
+        rm -rf aria2_git
+        git clone --depth=1 https://github.com/aria2/aria2.git aria2_git
+        cd aria2_git
+        git apply ../patch/1.patch
+
     - uses: msys2/setup-msys2@v2
       with:
         msystem: MINGW64
@@ -105,11 +112,6 @@ jobs:
       run: |
         export HOST=x86_64-w64-mingw32
         export PREFIX=/usr/local/$HOST
-
-        rm -rf aria2_git
-        git clone --depth=1 https://github.com/aria2/aria2.git aria2_git
-        cd aria2_git
-        git apply ../patch/1.patch
 
         autoreconf -fi || autoreconf -fiv
         ./configure \
