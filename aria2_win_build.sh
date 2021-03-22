@@ -15,54 +15,54 @@ pacman -S --noconfirm --needed $MINGW_PACKAGE_PREFIX-gcc \
 
 PREFIX=/usr/local/$HOST
 
-#c-ares
-rm -rf c-ares_git
-git clone --depth=1 https://github.com/c-ares/c-ares.git c-ares_git
-cd c-ares_git
-autoreconf -fi
-./configure \
-    --disable-shared \
-    --enable-static \
-    --without-random \
-    --disable-tests \
-    --prefix=/usr/local/$HOST \
-    --host=$HOST
-make
-make install
-cd ../
-rm -rf c-ares_git
-#c-ares
+# #c-ares
+# rm -rf c-ares_git
+# git clone --depth=1 https://github.com/c-ares/c-ares.git c-ares_git
+# cd c-ares_git
+# autoreconf -fi
+# ./configure \
+#     --disable-shared \
+#     --enable-static \
+#     --without-random \
+#     --disable-tests \
+#     --prefix=/usr/local/$HOST \
+#     --host=$HOST
+# make
+# make install
+# cd ../
+# rm -rf c-ares_git
+# #c-ares
 
-#expat
-rm -rf libexpat_git
-git clone --depth=1 https://github.com/libexpat/libexpat.git libexpat_git
-cd libexpat_git/expat
-./buildconf.sh
-./configure \
-    --disable-shared \
-    --enable-static \
-    --prefix=/usr/local/$HOST \
-    --host=$HOST
-make
-make install
-cd ../../
-rm -rf libexpat_git 
-#expat
+# #expat
+# rm -rf libexpat_git
+# git clone --depth=1 https://github.com/libexpat/libexpat.git libexpat_git
+# cd libexpat_git/expat
+# ./buildconf.sh
+# ./configure \
+#     --disable-shared \
+#     --enable-static \
+#     --prefix=/usr/local/$HOST \
+#     --host=$HOST
+# make
+# make install
+# cd ../../
+# rm -rf libexpat_git 
+# #expat
 
-#sql
-rm -rf sqlite_git
-git clone --depth=1 https://github.com/sqlite/sqlite.git sqlite_git
-cd sqlite_git
-./configure \
-    --disable-shared \
-    --enable-static \
-    --prefix=/usr/local/$HOST \
-    --host=$HOST
-make
-make install
-cd ../
-rm -rf sqlite_git 
-#sql
+# #sql
+# rm -rf sqlite_git
+# git clone --depth=1 https://github.com/sqlite/sqlite.git sqlite_git
+# cd sqlite_git
+# ./configure \
+#     --disable-shared \
+#     --enable-static \
+#     --prefix=/usr/local/$HOST \
+#     --host=$HOST
+# make
+# make install
+# cd ../
+# rm -rf sqlite_git 
+# #sql
 
 rm -rf aria2_git
 git clone --depth=1 https://github.com/aria2/aria2.git aria2_git

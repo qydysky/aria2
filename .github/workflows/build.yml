@@ -81,10 +81,18 @@ jobs:
         update: true
         install: >-
           base-devel
-          git
-          zlib
+          mingw-w64-x86_64-c-ares
+          mingw-w64-x86_64-cppunit
+          mingw-w64-x86_64-gcc-libs
+          mingw-w64-x86_64-gettext
+          mingw-w64-x86_64-libiconv
+          mingw-w64-x86_64-libssh2
+          mingw-w64-x86_64-libuv
+          mingw-w64-x86_64-libxml2
+          mingw-w64-x86_64-openssl
+          mingw-w64-x86_64-sqlite3
+          mingw-w64-x86_64-zlib
           libtool
-          libssh2-devel
 
     - name: Check out code
       uses: actions/checkout@v2
