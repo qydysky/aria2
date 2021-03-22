@@ -103,10 +103,7 @@ jobs:
           mingw-w64-x86_64-zlib
           mingw-w64-x86_64-libtool
           mingw-w64-x86_64-nettle
-
-    - name: Check out code
-      uses: actions/checkout@v2
-
+          
     - name: Build
       shell: msys2 {0}
       run: |
