@@ -20,7 +20,7 @@ autoreconf -fi
     --without-random \
     --disable-tests 
 
-make install -j$CPUCOUNT
+sudo make install -j$CPUCOUNT
 cd ../
 rm -rf c-ares_git
 #c-ares
@@ -34,7 +34,7 @@ cd libexpat_git/expat
     --disable-shared \
     --enable-static 
     
-make install -j$CPUCOUNT
+sudo make install -j$CPUCOUNT
 cd ../../
 rm -rf libexpat_git 
 #expat
@@ -51,7 +51,7 @@ autoreconf -fi
     --enable-static \
     --disable-shared
 
-make install -j$CPUCOUNT
+sudo make install -j$CPUCOUNT
 cd ../
 rm -rf libssh2_git
 #libssh2
@@ -64,7 +64,7 @@ cd sqlite_git
     --disable-shared \
     --enable-static 
 
-make install -j$CPUCOUNT
+sudo make install -j$CPUCOUNT
 cd ../
 rm -rf sqlite_git 
 #sql
