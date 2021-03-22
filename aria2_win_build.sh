@@ -34,19 +34,19 @@ PREFIX=/usr/local/$HOST
 # #c-ares
 
 # #expat
-# rm -rf libexpat_git
-# git clone --depth=1 https://github.com/libexpat/libexpat.git libexpat_git
-# cd libexpat_git/expat
-# ./buildconf.sh
-# ./configure \
-#     --disable-shared \
-#     --enable-static \
-#     --prefix=/usr/local/$HOST \
-#     --host=$HOST
-# make
-# make install
-# cd ../../
-# rm -rf libexpat_git 
+rm -rf libexpat_git
+git clone --depth=1 https://github.com/libexpat/libexpat.git libexpat_git
+cd libexpat_git/expat
+./buildconf.sh
+./configure \
+    --disable-shared \
+    --enable-static \
+    --prefix=/usr/local/$HOST \
+    --host=$HOST
+make
+make install
+cd ../../
+rm -rf libexpat_git 
 # #expat
 
 # #sql
