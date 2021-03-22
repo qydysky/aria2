@@ -103,8 +103,7 @@ jobs:
           mingw-w64-x86_64-libtool
           mingw-w64-x86_64-nettle
 
-    - name: Build
-      shell: msys2 {0}
+    - shell: msys2 {0}
       run: |
         export HOST=x86_64-w64-mingw32
         export PREFIX=/usr/local/$HOST
