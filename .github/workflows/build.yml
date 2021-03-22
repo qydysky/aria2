@@ -90,6 +90,7 @@ jobs:
           mingw-w64-x86_64-libuv
           mingw-w64-x86_64-openssl
           mingw-w64-x86_64-sqlite3
+          libsqlite-devel
           mingw-w64-x86_64-gcc
           mingw-w64-x86_64-winpthreads
           mingw-w64-x86_64-expat
