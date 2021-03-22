@@ -135,17 +135,10 @@ make install -j$CPUCOUNT
 cd ..
 rm -rf "libssh2-${ssh_ver}"
 
-if [[ -d aria2 ]]; then
-    cd aria2
-    git checkout master || git checkout HEAD
-    git reset --hard origin || git reset --hard
-    git pull
-else
-    git clone https://github.com/aria2/aria2 --depth=1 --config http.sslVerify=false
-    cd aria2 || exit 1
-fi
-git checkout -b patch
-git am -3 ../aria2-*.patch
+rm -rf aria2_git
+git clone --depth=1 https://github.com/aria2/aria2.git aria2_git
+cp -rf ./patch/src ./aria2_git/
+cd aria2_git
 
 autoreconf -fi || autoreconf -fiv
 ./configure \
@@ -170,7 +163,3 @@ autoreconf -fi || autoreconf -fiv
     LDFLAGS="-L$PREFIX/lib -Wl,--gc-sections,--build-id=none" \
     PKG_CONFIG_PATH="$PREFIX/lib/pkgconfig"
 make -j$CPUCOUNT
-strip -s src/aria2c.exe
-git checkout master
-git branch patch -D
-cd ..
