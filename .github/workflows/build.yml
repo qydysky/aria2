@@ -30,16 +30,107 @@ jobs:
         value: ${{ steps.create_release.outputs.upload_url }}
 
   u-build:
-    name: build
+    name: build_ubuntu
     needs: Release_Drafter
     runs-on: ubuntu-latest
     steps:
     - name: Check out code
       uses: actions/checkout@v2
-            
+
     - name: Build
       run: |
-        ./aria2_build.sh
+        sudo apt-get install autopoint gettext 
+
+        #c-ares
+        rm -rf c-ares_git
+        git clone --depth=1 https://github.com/c-ares/c-ares.git c-ares_git
+        cd c-ares_git
+        autoreconf -fi
+        ./configure \
+            --disable-shared \
+            --enable-static \
+            --without-random \
+            --disable-tests 
+
+        make
+        sudo make install
+        cd ../
+        rm -rf c-ares_git
+        #c-ares
+
+        #expat
+        rm -rf libexpat_git
+        git clone --depth=1 https://github.com/libexpat/libexpat.git libexpat_git
+        cd libexpat_git/expat
+        ./buildconf.sh
+        ./configure \
+            --disable-shared \
+            --enable-static 
+        make
+        sudo make install
+        cd ../../
+        rm -rf libexpat_git 
+        #expat
+
+        #libssh2
+        rm -rf libssh2_git
+        git clone --depth=1 https://github.com/libssh2/libssh2.git libssh2_git
+        cd libssh2_git
+        autoreconf -fi
+        ./configure \
+            --without-libgcrypt \
+            --with-openssl \
+            --without-wincng \
+            --enable-static \
+            --disable-shared
+        make
+        sudo make install
+        cd ../
+        rm -rf libssh2_git
+        #libssh2
+
+        #sql
+        rm -rf sqlite_git
+        git clone --depth=1 https://github.com/sqlite/sqlite.git sqlite_git
+        cd sqlite_git
+        ./configure \
+            --disable-shared \
+            --enable-static 
+        make
+        sudo make install
+        cd ../
+        rm -rf sqlite_git 
+        #sql
+
+        git clone --depth=1 https://github.com/aria2/aria2.git aria2_git
+        cd aria2_git
+        git apply ../patch/1.patch
+
+        cat '/etc/ssl/certs/ca-certificates.crt' > /dev/null
+        if [ "$?" -eq 0 ] ; then
+          CRT='/etc/ssl/certs/ca-certificates.crt'
+        else
+          CRT='./certs/ca-certificates.crt'
+        fi
+
+        autoreconf -fi || autoreconf -fiv
+        ./configure \
+            --without-libxml2 \
+            --without-libgcrypt \
+            --with-openssl \
+            --without-libnettle \
+            --without-gnutls \
+            --without-libgmp \
+            --with-libssh2 \
+            --with-sqlite3 \
+            --with-ca-bundle=$CRT \
+            ARIA2_STATIC=yes \
+            --enable-shared=no
+
+        make
+        cd ../
+        cp aria2_git/src/aria2c* ./
+        rm -rf aria2_git
       
     - name: zip
       run: zip -q -r ubuntu.zip *
@@ -76,8 +167,60 @@ jobs:
 
     - name: Build
       run: |
-        sudo apt-get install autopoint gettext
+        sudo apt-get install \
+          binutils-mingw-w64 \
+          binutils-mingw-w64-i686 \
+          binutils-mingw-w64-x86-64 \
+          g++-mingw-w64 \
+          g++-mingw-w64-i686 \
+          g++-mingw-w64-x86-64 \
+          gcc-mingw-w64 \
+          gcc-mingw-w64-base \
+          gcc-mingw-w64-i686 \
+          gcc-mingw-w64-x86-64 \
+          gdb-mingw-w64 \
+          gdb-mingw-w64-target \
+          gfortran-mingw-w64 \
+          gfortran-mingw-w64-i686 \
+          gfortran-mingw-w64-x86-64 \
+          gnat-mingw-w64 \
+          gnat-mingw-w64-i686 \
+          gnat-mingw-w64-x86-64 \
+          gobjc++-mingw-w64 \
+          gobjc++-mingw-w64-i686 \
+          gobjc++-mingw-w64-x86-64 \
+          gobjc-mingw-w64 \
+          gobjc-mingw-w64-i686 \
+          gobjc-mingw-w64-x86-64 \
+          libassuan-mingw-w64-dev \
+          libgcrypt-mingw-w64-dev \
+          libgpg-error-mingw-w64-dev \
+          libksba-mingw-w64-dev \
+          libnpth-mingw-w64-dev \
+          libz-mingw-w64 \
+          libz-mingw-w64-dev \
+          mingw-w64 \
+          mingw-w64-common \
+          mingw-w64-i686-dev \
+          mingw-w64-tools \
+          mingw-w64-x86-64-dev
 
+        sudo apt-get install \
+          autopoint \
+          gettext \
+          libgmp-dev \
+          cxxtest \
+          libcppunit-1.14-0 \
+          libcppunit-dev \
+          libcppunit-doc \
+          libcppunit-subunit-dev \
+          libcppunit-subunit0 \
+          libcunit1 \
+          libcunit1-dev \
+          libcunit1-doc \
+          libcunit1-ncurses \
+          libcunit1-ncurses-dev \
+ 
         #c-ares
         rm -rf c-ares_git
         git clone --depth=1 https://github.com/c-ares/c-ares.git c-ares_git
