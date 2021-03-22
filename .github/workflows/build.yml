@@ -81,6 +81,7 @@ jobs:
         update: true
         install: >-
           base-devel
+          mingw-w64-x86_64-pkg-config
           mingw-w64-x86_64-c-ares
           mingw-w64-x86_64-cppunit
           mingw-w64-x86_64-gcc-libs
@@ -104,8 +105,6 @@ jobs:
       run: |
         export HOST=x86_64-w64-mingw32
         export PREFIX=/usr/local/$HOST
-        export MINGW_PACKAGE_PREFIX=mingw-w64-x86_64
-        export PKG_CONFIG_PATH=$MINGW_PACKAGE_PREFIX:$PKG_CONFIG_PATH
 
         rm -rf aria2_git
         git clone --depth=1 https://github.com/aria2/aria2.git aria2_git
