@@ -229,8 +229,8 @@ jobs:
         
         # fix:
         # configure: error: *** A compiler with support for C++11 language features is required.
-        update-alternatives --set x86_64-w64-mingw32-g++ g++
-        update-alternatives --set x86_64-w64-mingw32-gcc gcc
+        update-alternatives --set x86_64-w64-mingw32-g++ /usr/bin/g++
+        update-alternatives --set x86_64-w64-mingw32-gcc /usr/bin/gcc
 
         ./configure \
             --host=$HOST \
