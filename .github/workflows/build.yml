@@ -222,7 +222,6 @@ jobs:
         echo
         find /usr/include -name features.h
         echo
-        x86_64-w64-mingw32-g++ 
 
         ./configure \
             --host=$HOST \
