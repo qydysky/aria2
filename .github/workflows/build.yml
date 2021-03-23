@@ -184,14 +184,14 @@ jobs:
 
         sudo aptitude -y install $packages
         sudo aptitude -y install autopoint pkg-config automake autotools-dev libtool 
-        sudo aptitude -y install build-essential flex libelf-dev binutils-dev libdwarf-dev libssh2-1-dev gcc-9-locales
+        sudo aptitude -y install build-essential flex libelf-dev binutils-dev libdwarf-dev libssh2-1-dev cpp-11-x86-64-linux-gnu 
 
         git clone --depth=1 https://github.com/aria2/aria2.git aria2_git
         cd aria2_git
         git apply ../patch/1.patch
 
         autoreconf -i
-        export HOST=i686-w64-mingw32
+        export HOST=x86_64-w64-mingw32
         export PREFIX=/usr/local/$HOST
         
         # fix:
