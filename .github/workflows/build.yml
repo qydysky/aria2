@@ -203,13 +203,25 @@ jobs:
         autoreconf -fi
         export HOST=x86_64-w64-mingw32
         export PREFIX=/usr/local/$HOST
-        # export CFLAGS=-I/usr/include/x86_64-linux-gnu
-        # export CXXFLAGS=-I/usr/include/x86_64-linux-gnu
+        
+        # fix:
+        # /usr/local/include/ares_build.h:86:12: fatal error: sys/socket.h: No such file or directory
+        # or
+        # /usr/include/x86_64-linux-gnu/sys/types.h:25:10: fatal error: features.h: No such file or directory
+        # or
+        # previous declaration
+        ln -s /usr/include/x86_64-linux-gnu/sys $PREFIX/include/sys
+        
+        # fix:
+        # configure: error: unknown endianness
+        #   presetting ac_cv_c_bigendian=no (or yes) will help
         export ac_cv_c_bigendian=no
+
         echo 
         find /usr/include -name socket.h
         echo
         find /usr/include -name features.h
+
         ./configure \
             --host=$HOST \
             --prefix=$PREFIX \
@@ -228,7 +240,7 @@ jobs:
             --without-libnettle \
             --with-cppunit-prefix=$PREFIX \
             ARIA2_STATIC=yes \
-            CPPFLAGS="-I$PREFIX/include -I/usr/include/x86_64-linux-gnu" \
+            CPPFLAGS="-I$PREFIX/include" \
             LDFLAGS="-L$PREFIX/lib" \
             PKG_CONFIG="/usr/bin/pkg-config" \
             PKG_CONFIG_PATH="$PREFIX/lib/pkgconfig"
