@@ -169,8 +169,8 @@ jobs:
       run: |
         # fix:
         # configure: error: *** A compiler with support for C++11 language features is required.
-        export A_x86_64-w64-mingw32-g++ = update-alternatives --list x86_64-w64-mingw32-g++
-        export A_x86_64-w64-mingw32-gcc = update-alternatives --list x86_64-w64-mingw32-gcc
+        export A_x86_64-w64-mingw32-g++ = $(update-alternatives --list x86_64-w64-mingw32-g++)
+        export A_x86_64-w64-mingw32-gcc = $(update-alternatives --list x86_64-w64-mingw32-gcc)
 
         export packages=$packages$(apt-cache search -n libcppunit dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n libc6-dev-amd64 | cut -d " " -f 1 | tr "\n" " ")
