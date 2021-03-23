@@ -180,11 +180,15 @@ jobs:
         export packages=$packages$(apt-cache search -n expat | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n zlib | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n c-ares | cut -d " " -f 1 | tr "\n" " ")
-        sudo aptitude -y install $(apt-cache search -n mingw-w64 | cut -d " " -f 1 | tr "\n" " ")
 
         sudo aptitude -y install $packages
         sudo aptitude -y install autopoint pkg-config automake autotools-dev libtool 
         sudo aptitude -y install build-essential flex libelf-dev binutils-dev libdwarf-dev libssh2-1-dev
+
+        # # fix:
+        # # configure: error: *** A compiler with support for C++11 language features is required.
+        sudo add-apt-repository "deb http://mirrors.kernel.org/ubuntu hirsute main universe"
+        sudo aptitude -y install $(apt-cache search -n mingw-w64 | cut -d " " -f 1 | tr "\n" " ")
 
         git clone --depth=1 https://github.com/aria2/aria2.git aria2_git
         cd aria2_git
@@ -206,11 +210,6 @@ jobs:
         # configure: error: unknown endianness
         #   presetting ac_cv_c_bigendian=no (or yes) will help
         export ac_cv_c_bigendian=no
-
-        # # fix:
-        # # configure: error: *** A compiler with support for C++11 language features is required.
-        sudo add-apt-repository "deb http:// hirsute main universe"
-        sudo aptitude -y install g++-11-x86-64-linux-gnu 
 
         ./configure \
             --host=$HOST \
