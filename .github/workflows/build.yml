@@ -179,7 +179,8 @@ jobs:
 
         sudo apt-get install autopoint pkg-config automake autotools-dev libtool 
         sudo apt-get install build-essential flex libelf-dev binutils-dev libdwarf-dev libssh2-1-dev
-        sudo apt-get install binutils-mingw-w64 binutils-mingw-w64-x86-64
+        
+        sudo apt-get install g++-mingw-w64-x86-64 gcc-mingw-w64-base gcc-mingw-w64-x86-64 binutils-mingw-w64-x86-64 gfortran-mingw-w64-x86-64 gnat-mingw-w64-x86-64 gobjc++-mingw-w64-x86-64 gobjc-mingw-w64-x86-64 gdb-mingw-w64-target libassuan-mingw-w64-dev libgcrypt-mingw-w64-dev libgpg-error-mingw-w64-dev libksba-mingw-w64-dev libz-mingw-w64 libz-mingw-w64-dev mingw-w64-common mingw-w64-tools mingw-w64-x86-64-dev libnpth-mingw-w64-dev
 
         #c-ares
         rm -rf c-ares_git
