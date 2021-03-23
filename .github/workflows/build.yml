@@ -169,7 +169,7 @@ jobs:
       run: |
         export packages=$packages$(apt-cache search -n libcppunit dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n libc6-dev-amd64 | cut -d " " -f 1 | tr "\n" " ")
-        export packages=$packages$(apt-cache search -n mingw-w64 | cut -d " " -f 1 | tr "\n" " ")
+        # export packages=$packages$(apt-cache search -n mingw-w64 | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n libssh2 dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n libssl dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n libxml2 dev | cut -d " " -f 1 | tr "\n" " ")
