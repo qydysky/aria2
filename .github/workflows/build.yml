@@ -191,7 +191,7 @@ jobs:
         git apply ../patch/1.patch
 
         autoreconf -i
-        export HOST=x86_64-w64-mingw32
+        export HOST=i686-w64-mingw32
         export PREFIX=/usr/local/$HOST
         
         # fix:
