@@ -1,5 +1,5 @@
 diff --git a/src/HttpSkipResponseCommand.cc b/src/HttpSkipResponseCommand.cc
-index a722d774..86647c2a 100644
+index a722d77..86647c2 100644
 --- a/src/HttpSkipResponseCommand.cc
 +++ b/src/HttpSkipResponseCommand.cc
 @@ -202,6 +202,12 @@ bool HttpSkipResponseCommand::processResponse()
@@ -16,7 +16,7 @@ index a722d774..86647c2a 100644
      switch (statusCode) {
      case 401:
 diff --git a/src/OptionHandlerFactory.cc b/src/OptionHandlerFactory.cc
-index 6bff4caa..1cc9f5f9 100644
+index 6bff4ca..1cc9f5f 100644
 --- a/src/OptionHandlerFactory.cc
 +++ b/src/OptionHandlerFactory.cc
 @@ -139,6 +139,16 @@ std::vector<OptionHandler*> OptionHandlerFactory::createOptionHandlers()
@@ -37,7 +37,7 @@ index 6bff4caa..1cc9f5f9 100644
      OptionHandler* op(new BooleanOptionHandler(PREF_CONDITIONAL_GET,
                                                 TEXT_CONDITIONAL_GET, A2_V_FALSE,
 diff --git a/src/TrackerWatcherCommand.cc b/src/TrackerWatcherCommand.cc
-index 960a377e..ca76327b 100644
+index 960a377..ca76327 100644
 --- a/src/TrackerWatcherCommand.cc
 +++ b/src/TrackerWatcherCommand.cc
 @@ -240,16 +240,16 @@ bool TrackerWatcherCommand::execute()
@@ -73,8 +73,34 @@ index 960a377e..ca76327b 100644
    // TODO When dry-run mode becomes available in BitTorrent, set
    // PREF_DRY_RUN=false too.
    option->put(PREF_USE_HEAD, A2_V_FALSE);
+diff --git a/src/WinConsoleFile.cc b/src/WinConsoleFile.cc
+index 55268e5..7fffdc7 100644
+--- a/src/WinConsoleFile.cc
++++ b/src/WinConsoleFile.cc
+@@ -43,6 +43,8 @@
+ #include "a2io.h"
+ #include "util.h"
+ 
++typedef unsigned long DWORD;
++
+ namespace {
+ 
+ #define FOREGROUND_BLACK 0
+diff --git a/src/WinConsoleFile.h b/src/WinConsoleFile.h
+index ae899c9..491485a 100644
+--- a/src/WinConsoleFile.h
++++ b/src/WinConsoleFile.h
+@@ -40,6 +40,8 @@
+ 
+ #include <string>
+ 
++typedef unsigned long DWORD;
++
+ namespace aria2 {
+ 
+ // This is a wrapper class for WriteConsoleW
 diff --git a/src/prefs.cc b/src/prefs.cc
-index fe982685..dd6f001f 100644
+index fe98268..dd6f001 100644
 --- a/src/prefs.cc
 +++ b/src/prefs.cc
 @@ -325,6 +325,8 @@ PrefPtr PREF_ENABLE_ASYNC_DNS6 = makePref("enable-async-dns6");
@@ -87,7 +113,7 @@ index fe982685..dd6f001f 100644
  // value: string
  PrefPtr PREF_ASYNC_DNS_SERVER = makePref("async-dns-server");
 diff --git a/src/prefs.h b/src/prefs.h
-index 9719b3be..7457bc11 100644
+index 9719b3b..7457bc1 100644
 --- a/src/prefs.h
 +++ b/src/prefs.h
 @@ -164,6 +164,8 @@ extern PrefPtr PREF_CONTINUE;
@@ -100,7 +126,7 @@ index 9719b3be..7457bc11 100644
  // value: 1*digit
  extern PrefPtr PREF_MAX_DOWNLOADS;
 diff --git a/src/usage_text.h b/src/usage_text.h
-index ebf67e3d..dda34da2 100644
+index ebf67e3..dda34da 100644
 --- a/src/usage_text.h
 +++ b/src/usage_text.h
 @@ -34,7 +34,10 @@
