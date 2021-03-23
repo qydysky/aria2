@@ -206,8 +206,10 @@ jobs:
         export CFLAGS=-I/usr/include/x86_64-linux-gnu
         export CXXFLAGS=-I/usr/include/x86_64-linux-gnu
         export ac_cv_c_bigendian=no
+        echo 
         find /usr/include -name socket.h
-
+        echo
+        find /usr/include -name features.h
         ./configure \
             --host=$HOST \
             --prefix=$PREFIX \
