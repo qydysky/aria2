@@ -222,7 +222,6 @@ jobs:
         echo
         find /usr/include -name features.h
         echo
-        g++ --version
 
         ./configure \
             --host=$HOST \
@@ -241,6 +240,7 @@ jobs:
             --without-libgcrypt \
             --without-libnettle \
             --with-cppunit-prefix=$PREFIX \
+            CXXCPP=g++ \
             ARIA2_STATIC=yes \
             CPPFLAGS="-I$PREFIX/include -I/usr/include" \
             LDFLAGS="-L$PREFIX/lib" \
