@@ -221,13 +221,14 @@ jobs:
         #   presetting ac_cv_c_bigendian=no (or yes) will help
         export ac_cv_c_bigendian=no
 
-        
-
         echo 
         find /usr/include -name socket.h
         echo
         find /usr/include -name features.h
         echo
+        find /usr/include -name x86_64-w64-mingw32-g++
+        echo
+        
 
         ./configure \
             --host=$HOST \
