@@ -178,6 +178,10 @@ jobs:
         sudo apt-get install $packages
         sudo apt-get install build-essential flex libelf-dev binutils-dev libdwarf-dev
 
+        #fix:
+        # configure: error: *** A compiler with support for C++11 language features is required.
+        sudo apt-get install g++
+
         # #c-ares
         rm -rf c-ares_git
         git clone --depth=1 https://github.com/c-ares/c-ares.git c-ares_git
@@ -216,6 +220,8 @@ jobs:
         # configure: error: unknown endianness
         #   presetting ac_cv_c_bigendian=no (or yes) will help
         export ac_cv_c_bigendian=no
+
+        
 
         echo 
         find /usr/include -name socket.h
