@@ -221,6 +221,8 @@ jobs:
         find /usr/include -name socket.h
         echo
         find /usr/include -name features.h
+        echo
+        g++ --version
 
         ./configure \
             --host=$HOST \
