@@ -227,10 +227,14 @@ jobs:
 
         apt list --installed
         
-        # fix:
-        # configure: error: *** A compiler with support for C++11 language features is required.
-        sudo update-alternatives --remove-all x86_64-w64-mingw32-g++
-        sudo update-alternatives --remove-all x86_64-w64-mingw32-gcc
+        echo "int main(){return 0;}" > t.cpp
+        x86_64-w64-mingw32-g++ -std=c++11 t.cpp
+        x86_64-w64-mingw32-gcc -std=c++11 t.cpp
+        
+        # # fix:
+        # # configure: error: *** A compiler with support for C++11 language features is required.
+        # update-alternatives --remove-all x86_64-w64-mingw32-g++ /usr/bin/x86_64-w64-mingw32-g++-posix
+        # update-alternatives --remove-all x86_64-w64-mingw32-gcc /usr/bin/x86_64-w64-mingw32-gcc-posix
 
         ./configure \
             --host=$HOST \
