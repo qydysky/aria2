@@ -169,8 +169,7 @@ jobs:
       run: |
         # # fix:
         # # configure: error: *** A compiler with support for C++11 language features is required.
-        # export A_x86_64_w64_mingw32_g++=$(update-alternatives --list x86_64-w64-mingw32-g++)
-        # export A_x86_64_w64_mingw32_gcc=$(update-alternatives --list x86_64-w64-mingw32-gcc)
+        sudo apt-get install aptitude
 
         export packages=$packages$(apt-cache search -n libcppunit dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n libc6-dev-amd64 | cut -d " " -f 1 | tr "\n" " ")
@@ -181,9 +180,9 @@ jobs:
         export packages=$packages$(apt-cache search -n expat | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n zlib | cut -d " " -f 1 | tr "\n" " ")
 
-        sudo apt-get install $packages
-        sudo apt-get install autopoint pkg-config automake autotools-dev libtool 
-        sudo apt-get install build-essential flex libelf-dev binutils-dev libdwarf-dev libssh2-1-dev
+        sudo aptitude install $packages
+        sudo aptitude install autopoint pkg-config automake autotools-dev libtool 
+        sudo aptitude install build-essential flex libelf-dev binutils-dev libdwarf-dev libssh2-1-dev
 
         #c-ares
         rm -rf c-ares_git
@@ -251,7 +250,7 @@ jobs:
             PKG_CONFIG="/usr/bin/pkg-config" \
             PKG_CONFIG_PATH="$PREFIX/lib/pkgconfig"
 
-        sudo apt-get install $(apt-cache search -n mingw-w64 | cut -d " " -f 1 | tr "\n" " ")
+        sudo aptitude install $(apt-cache search -n mingw-w64 | cut -d " " -f 1 | tr "\n" " ")
 
         make
         cd ../
