@@ -229,10 +229,8 @@ jobs:
         
         # fix:
         # configure: error: *** A compiler with support for C++11 language features is required.
-        update-alternatives --remove x86_64-w64-mingw32-g++ /usr/bin/x86_64-w64-mingw32-g++-posix
-        update-alternatives --remove x86_64-w64-mingw32-g++ /usr/bin/x86_64-w64-mingw32-g++-win32
-        update-alternatives --remove x86_64-w64-mingw32-gcc /usr/bin/x86_64-w64-mingw32-gcc-posix
-        update-alternatives --remove x86_64-w64-mingw32-gcc /usr/bin/x86_64-w64-mingw32-gcc-win32
+        sudo update-alternatives --remove-all x86_64-w64-mingw32-g++
+        sudo update-alternatives --remove-all x86_64-w64-mingw32-gcc
 
         ./configure \
             --host=$HOST \
