@@ -241,7 +241,7 @@ jobs:
             --without-libnettle \
             --with-cppunit-prefix=$PREFIX \
             CXXCPP=x86_64-w64-mingw32-g++ \
-            CXXCPP=x86_64-w64-mingw32-gcc \
+            CPP=x86_64-w64-mingw32-gcc \
             ARIA2_STATIC=yes \
             CPPFLAGS="-I$PREFIX/include -I/usr/include" \
             LDFLAGS="-L$PREFIX/lib" \
