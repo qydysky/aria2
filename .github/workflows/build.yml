@@ -167,22 +167,48 @@ jobs:
 
     - name: Build
       run: |
-        export packages=$(apt-cache search -n mingw-w64 | cut -d " " -f 1 | tr "\n" " ")
-        export packages=$packages$(apt-cache search -n cppunit | cut -d " " -f 1 | tr "\n" " ")
-        export packages=$packages$(apt-cache search -n expat | cut -d " " -f 1 | tr "\n" " ")
-        export packages=$packages$(apt-cache search -n libssh2 | cut -d " " -f 1 | tr "\n" " ")
-        export packages=$packages$(apt-cache search -n sqlite3 | cut -d " " -f 1 | tr "\n" " ")
-        export packages=$packages$(apt-cache search -n autopoint | cut -d " " -f 1 | tr "\n" " ")
-        export packages=$packages$(apt-cache search -n libc6-dev-amd64 | cut -d " " -f 1 | tr "\n" " ")
+        sudo apt-get install \
+          binutils-mingw-w64 \
+          binutils-mingw-w64-x86-64 \
+          g++-mingw-w64 \
+          g++-mingw-w64-x86-64 \
+          gcc-mingw-w64 \
+          gcc-mingw-w64-base \
+          gcc-mingw-w64-x86-64 \
+          gfortran-mingw-w64 \
+          gfortran-mingw-w64-x86-64 \
+          gnat-mingw-w64 \
+          gnat-mingw-w64-x86-64 \
+          gobjc++-mingw-w64 \
+          gobjc++-mingw-w64-x86-64 \
+          gobjc-mingw-w64 \
+          gobjc-mingw-w64-x86-64 \
+          gdb-mingw-w64 \
+          gdb-mingw-w64-target \
+          libassuan-mingw-w64-dev \
+          libgcrypt-mingw-w64-dev \
+          libgpg-error-mingw-w64-dev \
+          libksba-mingw-w64-dev \
+          libz-mingw-w64 \
+          libz-mingw-w64-dev \
+          mingw-w64 \
+          mingw-w64-common \
+          mingw-w64-tools \
+          mingw-w64-x86-64-dev \
+          libnpth-mingw-w64-dev \
+          libcppunit-1.14-0 \
+          libcppunit-dev \
+          libcppunit-doc \
+          libcppunit-subunit-dev \
+          libcppunit-subunit0 \
+          autopoint \
+          libc6-dev-amd64-cross \
+          libc6-dev-amd64-x32-cross \
+          libc6-dev-amd64
 
-        sudo apt-get install $packages
         sudo apt-get install build-essential flex libelf-dev binutils-dev libdwarf-dev
 
-        #fix:
-        # configure: error: *** A compiler with support for C++11 language features is required.
-        sudo apt-get install gcc-mingw-w64-x86-64 g++-mingw-w64-x86-64 mingw-w64-tools
-
-        # #c-ares
+        #c-ares
         rm -rf c-ares_git
         git clone --depth=1 https://github.com/c-ares/c-ares.git c-ares_git
         cd c-ares_git
@@ -191,14 +217,57 @@ jobs:
             --disable-shared \
             --enable-static \
             --without-random \
-            --disable-tests \
-            --prefix=/usr/local/$HOST \
-            --host=$HOST
+            --disable-tests 
+
         make
         sudo make install
         cd ../
         rm -rf c-ares_git
-        # #c-ares
+        #c-ares
+
+        #expat
+        rm -rf libexpat_git
+        git clone --depth=1 https://github.com/libexpat/libexpat.git libexpat_git
+        cd libexpat_git/expat
+        ./buildconf.sh
+        ./configure \
+            --disable-shared \
+            --enable-static 
+        make
+        sudo make install
+        cd ../../
+        rm -rf libexpat_git 
+        #expat
+
+        #libssh2
+        rm -rf libssh2_git
+        git clone --depth=1 https://github.com/libssh2/libssh2.git libssh2_git
+        cd libssh2_git
+        autoreconf -fi
+        ./configure \
+            --without-libgcrypt \
+            --with-openssl \
+            --without-wincng \
+            --enable-static \
+            --disable-shared
+        make
+        sudo make install
+        cd ../
+        rm -rf libssh2_git
+        #libssh2
+
+        #sql
+        rm -rf sqlite_git
+        git clone --depth=1 https://github.com/sqlite/sqlite.git sqlite_git
+        cd sqlite_git
+        ./configure \
+            --disable-shared \
+            --enable-static 
+        make
+        sudo make install
+        cd ../
+        rm -rf sqlite_git 
+        #sql
 
         git clone --depth=1 https://github.com/aria2/aria2.git aria2_git
         cd aria2_git
