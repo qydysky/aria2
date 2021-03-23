@@ -167,40 +167,19 @@ jobs:
 
     - name: Build
       run: |
-        export packages=$packages$(apt-cache search -n libcppunit | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n libcppunit dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n libc6-dev-amd64 | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n mingw-w64 | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n libssh2 dev | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n libssl dev | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n libxml2 dev | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n zlib1g dev | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n libsqlite3 dev | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n expat | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n zlib | cut -d " " -f 1 | tr "\n" " ")
 
-        sudo apt-get install \
-          binutils-mingw-w64 \
-          binutils-mingw-w64-x86-64 \
-          g++-mingw-w64 \
-          g++-mingw-w64-x86-64 \
-          gcc-mingw-w64 \
-          gcc-mingw-w64-base \
-          gcc-mingw-w64-x86-64 \
-          gfortran-mingw-w64 \
-          gfortran-mingw-w64-x86-64 \
-          gnat-mingw-w64 \
-          gnat-mingw-w64-x86-64 \
-          gobjc++-mingw-w64 \
-          gobjc++-mingw-w64-x86-64 \
-          gobjc-mingw-w64 \
-          gobjc-mingw-w64-x86-64 \
-          gdb-mingw-w64 \
-          gdb-mingw-w64-target \
-          libassuan-mingw-w64-dev \
-          libgcrypt-mingw-w64-dev \
-          libgpg-error-mingw-w64-dev \
-          libksba-mingw-w64-dev \
-          libz-mingw-w64 \
-          libz-mingw-w64-dev \
-          mingw-w64 \
-          mingw-w64-common \
-          mingw-w64-tools \
-          mingw-w64-x86-64-dev \
-          libnpth-mingw-w64-dev
-
-        sudo apt-get install build-essential flex libelf-dev binutils-dev libdwarf-dev autopoint
+        sudo apt-get install autopoint pkg-config automake autotools-dev libtool
+        sudo apt-get install build-essential flex libelf-dev binutils-dev libdwarf-dev 
 
         #c-ares
         rm -rf c-ares_git
@@ -219,55 +198,11 @@ jobs:
         rm -rf c-ares_git
         #c-ares
 
-        #expat
-        rm -rf libexpat_git
-        git clone --depth=1 https://github.com/libexpat/libexpat.git libexpat_git
-        cd libexpat_git/expat
-        ./buildconf.sh
-        ./configure \
-            --disable-shared \
-            --enable-static 
-        make
-        sudo make install
-        cd ../../
-        rm -rf libexpat_git 
-        #expat
-
-        #libssh2
-        rm -rf libssh2_git
-        git clone --depth=1 https://github.com/libssh2/libssh2.git libssh2_git
-        cd libssh2_git
-        autoreconf -fi
-        ./configure \
-            --without-libgcrypt \
-            --with-openssl \
-            --without-wincng \
-            --enable-static \
-            --disable-shared
-        make
-        sudo make install
-        cd ../
-        rm -rf libssh2_git
-        #libssh2
-
-        #sql
-        rm -rf sqlite_git
-        git clone --depth=1 https://github.com/sqlite/sqlite.git sqlite_git
-        cd sqlite_git
-        ./configure \
-            --disable-shared \
-            --enable-static 
-        make
-        sudo make install
-        cd ../
-        rm -rf sqlite_git 
-        #sql
-
         git clone --depth=1 https://github.com/aria2/aria2.git aria2_git
         cd aria2_git
         git apply ../patch/1.patch
 
-        autoreconf -fi
+        autoreconf -i
         export HOST=x86_64-w64-mingw32
         export PREFIX=/usr/local/$HOST
         
@@ -292,7 +227,6 @@ jobs:
         which x86_64-w64-mingw32-g++
         echo
         
-
         ./configure \
             --host=$HOST \
             --prefix=$PREFIX \
