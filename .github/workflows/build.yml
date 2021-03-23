@@ -226,7 +226,7 @@ jobs:
         echo
         find /usr/include -name features.h
         echo
-        find /usr/include -name x86_64-w64-mingw32-g++
+        find / -name x86_64-w64-mingw32-g++
         echo
         
 
