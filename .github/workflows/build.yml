@@ -210,7 +210,7 @@ jobs:
         # /usr/include/x86_64-linux-gnu/sys/types.h:25:10: fatal error: features.h: No such file or directory
         # or
         # previous declaration
-        ln -s /usr/include/x86_64-linux-gnu/sys $PREFIX/include/sys
+        ln -s /usr/include/sys $PREFIX/include/sys
         
         # fix:
         # configure: error: unknown endianness
