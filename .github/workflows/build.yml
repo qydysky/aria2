@@ -184,7 +184,7 @@ jobs:
 
         sudo aptitude -y install $packages
         sudo aptitude -y install autopoint pkg-config automake autotools-dev libtool 
-        sudo aptitude -y install build-essential flex libelf-dev binutils-dev libdwarf-dev libssh2-1-dev cpp-11-x86-64-linux-gnu 
+        sudo aptitude -y install build-essential flex libelf-dev binutils-dev libdwarf-dev libssh2-1-dev
 
         git clone --depth=1 https://github.com/aria2/aria2.git aria2_git
         cd aria2_git
@@ -209,8 +209,8 @@ jobs:
 
         # # fix:
         # # configure: error: *** A compiler with support for C++11 language features is required.
-        # update-alternatives --remove-all x86_64-w64-mingw32-g++ /usr/bin/x86_64-w64-mingw32-g++-posix
-        # update-alternatives --remove-all x86_64-w64-mingw32-gcc /usr/bin/x86_64-w64-mingw32-gcc-posix
+        echo "deb http:// hirsute main universe" >> /etc/apt/sources.list
+        sudo aptitude -y install g++-11-x86-64-linux-gnu 
 
         ./configure \
             --host=$HOST \
@@ -234,7 +234,6 @@ jobs:
             LDFLAGS="-L$PREFIX/lib" \
             PKG_CONFIG="/usr/bin/pkg-config" \
             PKG_CONFIG_PATH="$PREFIX/lib/pkgconfig"
-
 
         make
         cd ../
