@@ -188,14 +188,14 @@ jobs:
         # # fix:
         # # configure: error: *** A compiler with support for C++11 language features is required.
         sudo add-apt-repository "deb http://mirrors.kernel.org/ubuntu hirsute main universe"
-        sudo aptitude -y install $(apt-cache search -n mingw-w64 | cut -d " " -f 1 | tr "\n" " ") g++-11-multilib-x86-64-linux-gnu
+        sudo aptitude -y install $(apt-cache search -n mingw-w64 | cut -d " " -f 1 | tr "\n" " ") g++-11-multilib-x86-64-linux-gnux32
 
         git clone --depth=1 https://github.com/aria2/aria2.git aria2_git
         cd aria2_git
         git apply ../patch/1.patch
 
         autoreconf -i
-        export HOST=x86_64-w64-mingw32
+        export HOST=i686-w64-mingw32
         export PREFIX=/usr/local/$HOST
         
         # fix:
