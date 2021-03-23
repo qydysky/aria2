@@ -167,6 +167,9 @@ jobs:
 
     - name: Build
       run: |
+        export packages=$packages$(apt-cache search -n libcppunit | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n libc6-dev-amd64 | cut -d " " -f 1 | tr "\n" " ")
+
         sudo apt-get install \
           binutils-mingw-w64 \
           binutils-mingw-w64-x86-64 \
@@ -195,18 +198,9 @@ jobs:
           mingw-w64-common \
           mingw-w64-tools \
           mingw-w64-x86-64-dev \
-          libnpth-mingw-w64-dev \
-          libcppunit-1.14-0 \
-          libcppunit-dev \
-          libcppunit-doc \
-          libcppunit-subunit-dev \
-          libcppunit-subunit0 \
-          autopoint \
-          libc6-dev-amd64-cross \
-          libc6-dev-amd64-x32-cross \
-          libc6-dev-amd64
+          libnpth-mingw-w64-dev
 
-        sudo apt-get install build-essential flex libelf-dev binutils-dev libdwarf-dev
+        sudo apt-get install build-essential flex libelf-dev binutils-dev libdwarf-dev autopoint
 
         #c-ares
         rm -rf c-ares_git
