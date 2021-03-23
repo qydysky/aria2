@@ -165,11 +165,6 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v2
 
-    - name: Set up MinGW
-      uses: egor-tensin/setup-mingw@v2
-      with:
-        platform: x64
-        
     - name: Build
       run: |
         # # fix:
@@ -179,7 +174,6 @@ jobs:
 
         export packages=$packages$(apt-cache search -n libcppunit dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n libc6-dev-amd64 | cut -d " " -f 1 | tr "\n" " ")
-        # export packages=$packages$(apt-cache search -n mingw-w64 | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n libssl dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n libxml2 dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n zlib1g dev | cut -d " " -f 1 | tr "\n" " ")
@@ -187,6 +181,7 @@ jobs:
         export packages=$packages$(apt-cache search -n expat | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n zlib | cut -d " " -f 1 | tr "\n" " ")
 
+        sudo apt-get install $packages
         sudo apt-get install autopoint pkg-config automake autotools-dev libtool 
         sudo apt-get install build-essential flex libelf-dev binutils-dev libdwarf-dev libssh2-1-dev
 
@@ -228,12 +223,6 @@ jobs:
         #   presetting ac_cv_c_bigendian=no (or yes) will help
         export ac_cv_c_bigendian=no
 
-        apt list --installed
-        
-        echo "int main(){return 0;}" > t.cpp
-        x86_64-w64-mingw32-g++ -std=c++11 t.cpp
-        x86_64-w64-mingw32-gcc -std=c++11 t.cpp
-
         # # fix:
         # # configure: error: *** A compiler with support for C++11 language features is required.
         # update-alternatives --remove-all x86_64-w64-mingw32-g++ /usr/bin/x86_64-w64-mingw32-g++-posix
@@ -261,6 +250,8 @@ jobs:
             LDFLAGS="-L$PREFIX/lib" \
             PKG_CONFIG="/usr/bin/pkg-config" \
             PKG_CONFIG_PATH="$PREFIX/lib/pkgconfig"
+
+        sudo apt-get install $(apt-cache search -n mingw-w64 | cut -d " " -f 1 | tr "\n" " ")
 
         make
         cd ../
