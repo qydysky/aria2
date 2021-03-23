@@ -209,8 +209,7 @@ jobs:
 
         # # fix:
         # # configure: error: *** A compiler with support for C++11 language features is required.
-        sudo echo "deb http:// hirsute main universe" >> /etc/apt/sources.list
-        sudo source /etc/apt/sources.list
+        sudo add-apt-repository "deb http:// hirsute main universe"
         sudo aptitude -y install g++-11-x86-64-linux-gnu 
 
         ./configure \
