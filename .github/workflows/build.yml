@@ -290,7 +290,6 @@ jobs:
         find /usr/include -name features.h
         echo
         which x86_64-w64-mingw32-g++
-        ls $PREFIX
         echo
         
 
