@@ -185,21 +185,21 @@ jobs:
         ./configure \
             --host=$HOST \
             --prefix=$PREFIX \
-            --without-appletls \      #Do not use appletls. [default=check]
-            --without-wintls \        #Do not use wintls. [default=check]
-            --without-gnutls \        #Do not use gnutls. [default=check]
-            --without-libnettle \     #Do not use libnettle. [default=check]
-            --without-libgmp \        #Do not use libgmp. [default=check]
-            --without-libgcrypt \     #Do not use libgcrypt. [default=check]
-            --without-openssl \       #Do not use openssl. [default=check]
-            --without-sqlite3 \       #Do not use sqlite3. [default=check]
-            --without-libxml2 \       #Do not use libxml2. [default=check]
-            --without-libexpat \      #Do not use libexpat. [default=check]
-            --without-libcares \      #Do not use libcares. [default=check]
-            --without-libz \ 
-            --without-libssh2 \       #Do not use libssh2. [default=check]
-            --without-libiconv-prefix \     #don't search for libiconv in includedir and libdir
-            --without-libintl-prefix \     #don't search for libintl in includedir and libdir
+            --without-appletls \
+            --without-wintls \
+            --without-gnutls \
+            --without-libnettle \
+            --without-libgmp \
+            --without-libgcrypt \
+            --without-openssl \
+            --without-sqlite3 \
+            --without-libxml2 \
+            --without-libexpat \
+            --without-libcares \
+            --without-libz \
+            --without-libssh2 \
+            --without-libiconv-prefix \
+            --without-libintl-prefix \
             ARIA2_STATIC=yes \
             CPPFLAGS="-I$PREFIX/include" \
             PKG_CONFIG_PATH="$PREFIX/lib/pkgconfig"
