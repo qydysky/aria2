@@ -154,7 +154,7 @@ jobs:
 
     - name: Build
       run: |
-        export CXX=x86_64-w64-mingw32-g++
+        x86_64-linux-gnu-g++ --version
         export HOST=x86_64-w64-mingw32
         export PREFIX=/usr/local/$HOST
 
