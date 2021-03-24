@@ -165,7 +165,7 @@ jobs:
         git clone --depth=1 https://github.com/aria2/aria2.git aria2_git
         cd aria2_git
         git apply ../patch/1.patch
-
+        find /usr -name cppunit
         autoreconf -i
         
         # fix:
@@ -200,7 +200,7 @@ jobs:
             --with-cppunit-prefix=$PREFIX \
             ARIA2_STATIC=yes \
             CPPFLAGS="-I$PREFIX/include" \
-            CPPUNIT_CFLAGS="-I/usr/include -I/usr/local/include" \
+            CPPUNIT_CFLAGS="-I$(find /usr -name cppunit)" \
             PKG_CONFIG_PATH="$PREFIX/lib/pkgconfig"
 
         make
