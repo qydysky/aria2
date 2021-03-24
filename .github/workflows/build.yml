@@ -149,7 +149,7 @@ jobs:
 
         sudo aptitude -y install $packages
         sudo aptitude -y install autopoint automake autotools-dev libtool gettext 
-        sudo aptitude -y install build-essential libelf-dev binutils-dev libdwarf-dev libssh2-1-dev
+        sudo aptitude -y install build-essential libelf-dev binutils-dev libdwarf-dev libssh2-1-dev gcc g++
 
         # fix:
         # configure: error: *** A compiler with support for C++11 language features is required.
