@@ -185,7 +185,7 @@ jobs:
         ./configure \
             --host=$HOST \
             --prefix=$PREFIX \
-            --without-PACKAGE
+            --without-PACKAGE \
             --without-included-gettext \
             --disable-nls \
             --without-gnutls \
