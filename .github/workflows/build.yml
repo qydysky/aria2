@@ -185,9 +185,9 @@ jobs:
         ./configure \
             --host=$HOST \
             --prefix=$PREFIX \
+            --without-PACKAGE
             --without-included-gettext \
             --disable-nls \
-            --with-libcares \
             --without-gnutls \
             --without-openssl \
             --with-sqlite3 \
