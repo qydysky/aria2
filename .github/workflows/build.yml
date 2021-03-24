@@ -148,11 +148,11 @@ jobs:
 
         sudo aptitude -y install $packages
         sudo aptitude -y install autopoint automake autotools-dev libtool gettext 
-        sudo aptitude -y install build-essential libelf-dev binutils-dev libdwarf-dev gcc g++
+        sudo aptitude -y install build-essential libelf-dev binutils-dev libdwarf-dev gcc g++ git
 
         # fix:
         # configure: error: *** A compiler with support for C++11 language features is required.
-        sudo aptitude -y install gcc-multilib g++-multilib
+        # sudo aptitude -y install gcc-multilib g++-multilib
 
     - name: Build
       run: |
