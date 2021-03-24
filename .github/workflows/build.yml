@@ -193,7 +193,6 @@ jobs:
             --with-libssh2 \
             --without-libgcrypt \
             --without-libnettle \
-            --with-cppunit-prefix=$PREFIX \
             ARIA2_STATIC=yes \
             CPPFLAGS="-I$PREFIX/include -I/usr/include" \
             LDFLAGS="-L$PREFIX/lib" \
