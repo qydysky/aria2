@@ -162,6 +162,8 @@ jobs:
         export HOST=x86_64-w64-mingw32
         export PREFIX=/usr/$HOST
 
+        ./lib_build
+
         git clone --depth=1 https://github.com/aria2/aria2.git aria2_git
         cd aria2_git
         git apply ../patch/1.patch
@@ -176,14 +178,10 @@ jobs:
         # previous declaration
         # sudo ln -s /usr/include/x86_64-linux-gnu/sys /usr/local/include/sys
 
-        ./lib_build
-
         # fix:
         # configure: error: unknown endianness
         #   presetting ac_cv_c_bigendian=no (or yes) will help
         # export ac_cv_c_bigendian=no
-
-        dpkg -L
 
         ./configure \
             --host=$HOST \
