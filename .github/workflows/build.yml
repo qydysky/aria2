@@ -158,6 +158,8 @@ jobs:
     - name: Build
       run: |
         x86_64-linux-gnu-g++ --version
+        x86_64-w64-mingw32-g++ -print-libgcc-file-name
+
         export HOST=x86_64-w64-mingw32
         export PREFIX=/usr/$HOST
 
@@ -206,9 +208,6 @@ jobs:
         cd ../
         cp aria2_git/src/aria2c* ./
         rm -rf aria2_git
-
-    - name: Debug
-      run: cat ./configure.log
 
     - name: zip
       run: zip -q -r windows.zip *
