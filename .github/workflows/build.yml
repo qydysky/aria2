@@ -200,7 +200,7 @@ jobs:
             --with-cppunit-prefix=$PREFIX \
             ARIA2_STATIC=yes \
             CPPFLAGS="-I$PREFIX/include" \
-            CPPUNIT_CFLAGS="-I/usr/inlude" \
+            CPPUNIT_CFLAGS="-I/usr/inlude/cppunit" \
             PKG_CONFIG_PATH="$PREFIX/lib/pkgconfig"
 
         make
