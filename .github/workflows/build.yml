@@ -199,7 +199,8 @@ jobs:
             --without-libnettle \
             --with-cppunit-prefix=$PREFIX \
             ARIA2_STATIC=yes \
-            CPPFLAGS="-I$PREFIX/include -I/usr/local/include" \
+            CPPFLAGS="-I$PREFIX/include" \
+            CPPUNIT_CFLAGS="-I/usr/include -I/usr/local/include" \
             PKG_CONFIG_PATH="$PREFIX/lib/pkgconfig"
 
         make
