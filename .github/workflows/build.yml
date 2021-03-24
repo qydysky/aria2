@@ -158,7 +158,6 @@ jobs:
       run: |
         x86_64-linux-gnu-g++ --version
         x86_64-w64-mingw32-g++ -print-libgcc-file-name
-        find / -name libexpat
 
         export HOST=x86_64-w64-mingw32
         export PREFIX=/usr/$HOST
@@ -176,12 +175,16 @@ jobs:
         # or
         # previous declaration
         # sudo ln -s /usr/include/x86_64-linux-gnu/sys /usr/local/include/sys
-        
+        sudo ln -sr -t $PREFIX/include/ $(find /usr/include -name *expat*)
+        sudo ln -sr -t $PREFIX/include/ $(find /usr/include -name *cppunit*)
+
         # fix:
         # configure: error: unknown endianness
         #   presetting ac_cv_c_bigendian=no (or yes) will help
         # export ac_cv_c_bigendian=no
-        
+
+        dpkg -L
+
         ./configure \
             --host=$HOST \
             --prefix=$PREFIX \
