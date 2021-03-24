@@ -186,19 +186,6 @@ jobs:
             --host=$HOST \
             --prefix=$PREFIX \
             --without-PACKAGE \
-            --without-included-gettext \
-            --disable-nls \
-            --without-gnutls \
-            --without-openssl \
-            --with-sqlite3 \
-            --without-libxml2 \
-            --with-libexpat \
-            --with-libz \
-            --without-libgmp \
-            --with-libssh2 \
-            --without-libgcrypt \
-            --without-libnettle \
-            --with-cppunit-prefix=$PREFIX \
             ARIA2_STATIC=yes \
             CPPFLAGS="-I$PREFIX/include" \
             PKG_CONFIG_PATH="$PREFIX/lib/pkgconfig"
