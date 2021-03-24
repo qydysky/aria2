@@ -160,9 +160,7 @@ jobs:
         x86_64-w64-mingw32-g++ -print-libgcc-file-name
 
         export HOST=x86_64-w64-mingw32
-        export PREFIX=/usr/$HOST
-
-        ./lib_build
+        export PREFIX=/usr/local/$HOST
 
         git clone --depth=1 https://github.com/aria2/aria2.git aria2_git
         cd aria2_git
@@ -203,6 +201,7 @@ jobs:
             ARIA2_STATIC=yes \
             CPPFLAGS="-I$PREFIX/include" \
             LDFLAGS="-L$PREFIX/lib" \
+            EXPAT_LIBS="-L/usr/local/lib" \
             PKG_CONFIG_PATH="$PREFIX/lib/pkgconfig"
 
         make
