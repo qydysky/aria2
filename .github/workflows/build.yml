@@ -179,7 +179,7 @@ jobs:
         # configure: error: unknown endianness
         #   presetting ac_cv_c_bigendian=no (or yes) will help
         # export ac_cv_c_bigendian=no
-
+        
         ./configure \
             --host=$HOST \
             --prefix=$PREFIX \
@@ -206,6 +206,9 @@ jobs:
         cd ../
         cp aria2_git/src/aria2c* ./
         rm -rf aria2_git
+
+    - name: Debug
+      run: cat ./configure.log
 
     - name: zip
       run: zip -q -r windows.zip *
