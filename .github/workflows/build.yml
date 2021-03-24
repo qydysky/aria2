@@ -122,7 +122,6 @@ jobs:
 
   w-build:
     name: build_windows
-    needs: Release_Drafter
     runs-on: ubuntu-latest
     steps:
     - name: Check out code
