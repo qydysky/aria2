@@ -37,71 +37,33 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v2
 
+    - name: Env
+      run: |
+        # # fix:
+        # # The following packages have unmet dependencies:...
+        sudo apt-get install aptitude
+
+        export packages=$packages$(apt-cache search -n libcppunit dev | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n libc6-dev-amd64 | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n libssl dev | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n libxml2 dev | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n zlib1g dev | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n libsqlite3 dev | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n expat | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n zlib | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n c-ares | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n mingw-w64 | cut -d " " -f 1 | tr "\n" " ")
+
+        sudo aptitude -y install $packages
+        sudo aptitude -y install autopoint pkg-config automake autotools-dev libtool gettext 
+        sudo aptitude -y install build-essential libelf-dev binutils-dev libdwarf-dev libssh2-1-dev
+        
+        # fix:
+        # configure: error: *** A compiler with support for C++11 language features is required.
+        sudo aptitude -y install gcc-multilib g++-multilib
+
     - name: Build
       run: |
-        sudo apt-get install autopoint gettext 
-
-        #c-ares
-        rm -rf c-ares_git
-        git clone --depth=1 https://github.com/c-ares/c-ares.git c-ares_git
-        cd c-ares_git
-        autoreconf -fi
-        ./configure \
-            --disable-shared \
-            --enable-static \
-            --without-random \
-            --disable-tests 
-
-        make
-        sudo make install
-        cd ../
-        rm -rf c-ares_git
-        #c-ares
-
-        #expat
-        rm -rf libexpat_git
-        git clone --depth=1 https://github.com/libexpat/libexpat.git libexpat_git
-        cd libexpat_git/expat
-        ./buildconf.sh
-        ./configure \
-            --disable-shared \
-            --enable-static 
-        make
-        sudo make install
-        cd ../../
-        rm -rf libexpat_git 
-        #expat
-
-        #libssh2
-        rm -rf libssh2_git
-        git clone --depth=1 https://github.com/libssh2/libssh2.git libssh2_git
-        cd libssh2_git
-        autoreconf -fi
-        ./configure \
-            --without-libgcrypt \
-            --with-openssl \
-            --without-wincng \
-            --enable-static \
-            --disable-shared
-        make
-        sudo make install
-        cd ../
-        rm -rf libssh2_git
-        #libssh2
-
-        #sql
-        rm -rf sqlite_git
-        git clone --depth=1 https://github.com/sqlite/sqlite.git sqlite_git
-        cd sqlite_git
-        ./configure \
-            --disable-shared \
-            --enable-static 
-        make
-        sudo make install
-        cd ../
-        rm -rf sqlite_git 
-        #sql
-
         git clone --depth=1 https://github.com/aria2/aria2.git aria2_git
         cd aria2_git
         git apply ../patch/1.patch
@@ -165,7 +127,7 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v2
 
-    - name: Build
+    - name: Env
       run: |
         # # fix:
         # # The following packages have unmet dependencies:...
@@ -183,20 +145,24 @@ jobs:
         export packages=$packages$(apt-cache search -n mingw-w64 | cut -d " " -f 1 | tr "\n" " ")
 
         sudo aptitude -y install $packages
-        sudo aptitude -y install autopoint pkg-config automake autotools-dev libtool 
+        sudo aptitude -y install autopoint pkg-config automake autotools-dev libtool gettext 
         sudo aptitude -y install build-essential libelf-dev binutils-dev libdwarf-dev libssh2-1-dev
 
         # fix:
         # configure: error: *** A compiler with support for C++11 language features is required.
         sudo aptitude -y install gcc-multilib g++-multilib
 
+    - name: Build
+      run: |
+        export CXX=x86_64-w64-mingw32-g++
+        export HOST=x86_64-w64-mingw32
+        export PREFIX=/usr/local/$HOST
+
         git clone --depth=1 https://github.com/aria2/aria2.git aria2_git
         cd aria2_git
         git apply ../patch/1.patch
 
         autoreconf -i
-        export HOST=i686-w64-mingw32
-        export PREFIX=/usr/local/$HOST
         
         # fix:
         # /usr/local/include/ares_build.h:86:12: fatal error: sys/socket.h: No such file or directory
