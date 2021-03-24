@@ -200,8 +200,7 @@ jobs:
             --with-cppunit-prefix=$PREFIX \
             ARIA2_STATIC=yes \
             CPPFLAGS="-I$PREFIX/include" \
-            LDFLAGS="-L$PREFIX/lib" \
-            EXPAT_LIBS="-L/usr/local/lib" \
+            LDFLAGS="-L$PREFIX/lib -L/usr/local/lib" \
             PKG_CONFIG_PATH="$PREFIX/lib/pkgconfig"
 
         make
