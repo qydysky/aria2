@@ -175,8 +175,8 @@ jobs:
         # or
         # previous declaration
         # sudo ln -s /usr/include/x86_64-linux-gnu/sys /usr/local/include/sys
-        sudo ln -sr -t $PREFIX/include/ $(find /usr/include -name *expat*)
-        sudo ln -sr -t $PREFIX/include/ $(find /usr/include -name *cppunit*)
+        sudo ln -s -t $PREFIX/include/ $(find /usr/include -name *expat*)
+        sudo ln -s -t $PREFIX/include/ $(find /usr/include -name *cppunit*)
 
         # fix:
         # configure: error: unknown endianness
