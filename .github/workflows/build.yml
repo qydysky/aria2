@@ -158,6 +158,7 @@ jobs:
       run: |
         x86_64-linux-gnu-g++ --version
         x86_64-w64-mingw32-g++ -print-libgcc-file-name
+        find / -name libexpat
 
         export HOST=x86_64-w64-mingw32
         export PREFIX=/usr/$HOST
