@@ -180,7 +180,8 @@ jobs:
         # configure: error: unknown endianness
         #   presetting ac_cv_c_bigendian=no (or yes) will help
         # export ac_cv_c_bigendian=no
-
+        ls /usr
+        
         ./configure \
             --host=$HOST \
             --prefix=$PREFIX \
@@ -199,7 +200,7 @@ jobs:
             --without-libnettle \
             --with-cppunit-prefix=$PREFIX \
             ARIA2_STATIC=yes \
-            CPPFLAGS="-I$PREFIX/include -I/usr/inlude/cppunit" \
+            CPPFLAGS="-I$PREFIX/include" \
             PKG_CONFIG_PATH="$PREFIX/lib/pkgconfig"
 
         make
