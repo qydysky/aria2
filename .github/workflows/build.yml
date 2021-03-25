@@ -125,7 +125,7 @@ jobs:
         export packages=$packages$(apt-cache search -n libsqlite3 dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n expat | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n zlib | cut -d " " -f 1 | tr "\n" " ")
-        export packages=$packages$(apt-cache search -n c-ares | cut -d " " -f 1 | tr "\n" " ")
+        # export packages=$packages$(apt-cache search -n c-ares | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n mingw-w64 | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n dpkg-dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n pkg-config | cut -d " " -f 1 | tr "\n" " ")
@@ -141,6 +141,15 @@ jobs:
         sudo aptitude -y install $packages
         sudo aptitude -y install autopoint automake autotools-dev libtool gettext 
         sudo aptitude -y install build-essential libelf-dev binutils-dev libdwarf-dev gcc g++ git
+
+        export HOST=x86_64-w64-mingw32
+
+        git clone --depth=1 https://github.com/c-ares/c-ares.git tmp
+        cd tmp
+        ./configure --host=$HOST
+        make
+        sudo make install
+
 
     - name: Build
       run: |
