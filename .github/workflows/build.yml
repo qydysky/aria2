@@ -194,7 +194,6 @@ jobs:
             --without-openssl \
             --without-sqlite3 \
             --without-libxml2 \
-            --without-libcares \
             --without-libz \
             --without-libssh2 \
             --without-libiconv-prefix \
