@@ -123,7 +123,7 @@ jobs:
         export packages=$packages$(apt-cache search -n libxml2 dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n zlib1g dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n libsqlite3 dev | cut -d " " -f 1 | tr "\n" " ")
-        export packages=$packages$(apt-cache search -n expat | cut -d " " -f 1 | tr "\n" " ")
+        # export packages=$packages$(apt-cache search -n expat | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n zlib | cut -d " " -f 1 | tr "\n" " ")
         # export packages=$packages$(apt-cache search -n c-ares | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n mingw-w64 | cut -d " " -f 1 | tr "\n" " ")
@@ -149,7 +149,17 @@ jobs:
         ./configure --host=$HOST
         make
         sudo make install
+        cd ..
+        rm -rf tmp
 
+        git clone --depth=1 https://github.com/libexpat/libexpat.git tmp
+        cd tmp/expat
+        autoreconf -i
+        ./configure --host=$HOST
+        make
+        sudo make install
+        cd ../../
+        rm -rf tmp
 
     - name: Build
       run: |
