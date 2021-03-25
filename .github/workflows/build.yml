@@ -146,6 +146,7 @@ jobs:
 
         git clone --depth=1 https://github.com/c-ares/c-ares.git tmp
         cd tmp
+        ./buildconf
         ./configure --host=$HOST
         make
         sudo make install
@@ -154,7 +155,7 @@ jobs:
 
         git clone --depth=1 https://github.com/libexpat/libexpat.git tmp
         cd tmp/expat
-        autoreconf -i
+        ./buildconf.sh
         ./configure --host=$HOST
         make
         sudo make install
