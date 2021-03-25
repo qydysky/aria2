@@ -54,42 +54,26 @@ jobs:
         export packages=$packages$(apt-cache search -n c-ares | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n mingw-w64 | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n dpkg-dev | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n pkg-config | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n openssl dev | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n nettle dev | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n gcrypt dev | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n gnutls dev | cut -d " " -f 1 | tr "\n" " ")
 
         sudo aptitude -y install $packages
-        sudo aptitude -y install autopoint pkg-config automake autotools-dev libtool gettext
-        sudo aptitude -y install build-essential libelf-dev binutils-dev libdwarf-dev libssh2-1-dev
-        
-        # fix:
-        # configure: error: *** A compiler with support for C++11 language features is required.
-        sudo aptitude -y install gcc-multilib g++-multilib
+        sudo aptitude -y install autopoint automake autotools-dev libtool gettext 
+        sudo aptitude -y install build-essential libelf-dev binutils-dev libdwarf-dev gcc g++ git
 
     - name: Build
       run: |
         git clone --depth=1 https://github.com/aria2/aria2.git aria2_git
         cd aria2_git
-        git apply ../patch/1.patch
+        git apply ../patch/*
 
-        cat '/etc/ssl/certs/ca-certificates.crt' > /dev/null
-        if [ "$?" -eq 0 ] ; then
-          CRT='/etc/ssl/certs/ca-certificates.crt'
-        else
-          CRT='./certs/ca-certificates.crt'
-        fi
-
-        autoreconf -fi || autoreconf -fiv
+        autoreconf -i
         ./configure \
-            --without-libxml2 \
-            --without-libgcrypt \
-            --with-openssl \
-            --without-libnettle \
-            --without-gnutls \
-            --without-libgmp \
-            --with-libssh2 \
-            --with-sqlite3 \
-            --with-ca-bundle=$CRT \
-            ARIA2_STATIC=yes \
-            --enable-shared=no
-
+          ARIA2_STATIC=yes \
+ 
         make
         cd ../
         cp aria2_git/src/aria2c* ./
@@ -156,16 +140,12 @@ jobs:
 
     - name: Build
       run: |
-        x86_64-linux-gnu-g++ --version
-        x86_64-w64-mingw32-g++ -print-libgcc-file-name
-
         export HOST=x86_64-w64-mingw32
         export PREFIX=/usr/$HOST
 
         git clone --depth=1 https://github.com/aria2/aria2.git aria2_git
         cd aria2_git
-        git apply ../patch/1.patch
-        find /usr -name cppunit
+        git apply ../patch/*
         autoreconf -i
         
         ./configure \
@@ -180,10 +160,10 @@ jobs:
         cp aria2_git/src/aria2c* ./
         rm -rf aria2_git
 
-    - name: zip
+    - name: Zip
       run: zip -q -r windows.zip *
       
-    - name: get upload_url
+    - name: Get upload_url
       id: get_upload_url
       uses: noobly314/share-data@v1
       with:
@@ -196,11 +176,7 @@ jobs:
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        # The URL for uploading assets to the release
         upload_url: ${{ steps.get_upload_url.outputs.data }}
-        # The path to the asset you want to upload
         asset_path: ./windows.zip
-        # The name of the asset you want to upload
         asset_name: windows.zip
-        # The content-type of the asset you want to upload. See the supported Media Types here: https://www.iana.org/assignments/media-types/media-types.xhtml for more information
         asset_content_type: application/zip
