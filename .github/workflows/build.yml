@@ -192,7 +192,6 @@ jobs:
             --without-libgmp \
             --without-libgcrypt \
             --without-openssl \
-            --without-sqlite3 \
             --without-libxml2 \
             --without-libz \
             --without-libssh2 \
