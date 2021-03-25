@@ -185,15 +185,11 @@ jobs:
         ./configure \
             --host=$HOST \
             --prefix=$PREFIX \
-            --without-appletls \
-            --without-wintls \
             --without-gnutls \
             --without-libnettle \
             --without-libgcrypt \
             --without-openssl \
             --without-libxml2 \
-            --without-libiconv-prefix \
-            --without-libintl-prefix \
             ARIA2_STATIC=yes \
             CPPFLAGS="-I$PREFIX/include" \
             PKG_CONFIG_PATH="$PREFIX/lib/pkgconfig"
