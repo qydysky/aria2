@@ -74,6 +74,8 @@ jobs:
 
         autoreconf -i
         ./configure \
+            --without-libgcrypt \
+            --without-gnutls \
             ARIA2_STATIC=yes \
 
         make
