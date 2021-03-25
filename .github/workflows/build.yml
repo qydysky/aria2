@@ -193,7 +193,7 @@ jobs:
             --without-libgcrypt \
             --without-openssl \
             --without-libxml2 \
-            --without-libz \
+             --without-libz \
             --without-libssh2 \
             --without-libiconv-prefix \
             --without-libintl-prefix \
