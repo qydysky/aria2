@@ -60,6 +60,7 @@ jobs:
         export packages=$packages$(apt-cache search -n gcrypt dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n gnutls dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n gmp dev | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n glibc | cut -d " " -f 1 | tr "\n" " ")
 
         sudo aptitude -y install $packages
         sudo aptitude -y install autopoint automake autotools-dev libtool gettext 
@@ -96,13 +97,9 @@ jobs:
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        # The URL for uploading assets to the release
         upload_url: ${{ steps.get_upload_url.outputs.data }}
-        # The path to the asset you want to upload
         asset_path: ./ubuntu.zip
-        # The name of the asset you want to upload
         asset_name: ubuntu.zip
-        # The content-type of the asset you want to upload. See the supported Media Types here: https://www.iana.org/assignments/media-types/media-types.xhtml for more information
         asset_content_type: application/zip
 
   w-build:
@@ -136,6 +133,7 @@ jobs:
         export packages=$packages$(apt-cache search -n gcrypt dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n gnutls dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n gmp dev | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n glibc | cut -d " " -f 1 | tr "\n" " ")
 
         sudo aptitude -y install $packages
         sudo aptitude -y install autopoint automake autotools-dev libtool gettext 
