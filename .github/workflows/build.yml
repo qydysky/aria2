@@ -192,7 +192,6 @@ jobs:
             --without-libgcrypt \
             --without-openssl \
             --without-libxml2 \
-            --without-libssh2 \
             --without-libiconv-prefix \
             --without-libintl-prefix \
             ARIA2_STATIC=yes \
