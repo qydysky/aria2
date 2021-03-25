@@ -60,7 +60,7 @@ jobs:
         export packages=$packages$(apt-cache search -n gcrypt dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n gnutls dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n unistring dev | cut -d " " -f 1 | tr "\n" " ")
-        export packages=$packages$(apt-cache search -n p11-kit dev | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n p11-kit | cut -d " " -f 1 | tr "\n" " ")
 
         sudo aptitude -y install $packages
         sudo aptitude -y install autopoint automake autotools-dev libtool gettext 
