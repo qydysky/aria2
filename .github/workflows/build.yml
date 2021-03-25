@@ -59,6 +59,7 @@ jobs:
         export packages=$packages$(apt-cache search -n nettle dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n gcrypt dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n gnutls dev | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n gmp dev | cut -d " " -f 1 | tr "\n" " ")
 
         sudo aptitude -y install $packages
         sudo aptitude -y install autopoint automake autotools-dev libtool gettext 
@@ -68,15 +69,10 @@ jobs:
       run: |
         git clone --depth=1 https://github.com/aria2/aria2.git aria2_git
         cd aria2_git
-        git apply ../patch/1.patch
+        git apply ../patch/*
 
-        autoreconf -fi || autoreconf -fiv
+        autoreconf -i
         ./configure \
-            --without-libxml2 \
-            --without-libgcrypt \
-            --without-libnettle \
-            --without-gnutls \
-            --without-libgmp \
             ARIA2_STATIC=yes \
 
         make
@@ -139,6 +135,7 @@ jobs:
         export packages=$packages$(apt-cache search -n nettle dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n gcrypt dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n gnutls dev | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n gmp dev | cut -d " " -f 1 | tr "\n" " ")
 
         sudo aptitude -y install $packages
         sudo aptitude -y install autopoint automake autotools-dev libtool gettext 
