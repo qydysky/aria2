@@ -70,10 +70,11 @@ jobs:
         cd aria2_git
         git apply ../patch/*
 
-        autoreconf -i
+        autoreconf -fi || autoreconf -fiv
         ./configure \
           ARIA2_STATIC=yes \
- 
+          --enable-shared=no
+          
         make
         cd ../
         cp aria2_git/src/aria2c* ./
@@ -140,6 +141,9 @@ jobs:
 
     - name: Build
       run: |
+        x86_64-linux-gnu-g++ --version
+        x86_64-w64-mingw32-g++ -print-libgcc-file-name
+
         export HOST=x86_64-w64-mingw32
         export PREFIX=/usr/$HOST
 
