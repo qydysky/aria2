@@ -68,13 +68,17 @@ jobs:
       run: |
         git clone --depth=1 https://github.com/aria2/aria2.git aria2_git
         cd aria2_git
-        git apply ../patch/*
+        git apply ../patch/1.patch
 
         autoreconf -fi || autoreconf -fiv
         ./configure \
-          ARIA2_STATIC=yes \
-          --enable-shared=no
-          
+            --without-libxml2 \
+            --without-libgcrypt \
+            --without-libnettle \
+            --without-gnutls \
+            --without-libgmp \
+            ARIA2_STATIC=yes \
+
         make
         cd ../
         cp aria2_git/src/aria2c* ./
@@ -141,9 +145,6 @@ jobs:
 
     - name: Build
       run: |
-        x86_64-linux-gnu-g++ --version
-        x86_64-w64-mingw32-g++ -print-libgcc-file-name
-
         export HOST=x86_64-w64-mingw32
         export PREFIX=/usr/$HOST
 
