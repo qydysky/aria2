@@ -43,15 +43,12 @@ jobs:
         # # The following packages have unmet dependencies:...
         sudo apt-get install aptitude
 
-        export packages=$packages$(apt-cache search -n libcppunit dev | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages“autopoint automake autotools-dev libtool gettext”
+        export packages=$packages“build-essential libelf-dev binutils-dev libdwarf-dev gcc g++ git”
         export packages=$packages$(apt-cache search -n libc6-dev-amd64 | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n libssl dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n libxml2 dev | cut -d " " -f 1 | tr "\n" " ")
-        export packages=$packages$(apt-cache search -n zlib1g dev | cut -d " " -f 1 | tr "\n" " ")
-        export packages=$packages$(apt-cache search -n libsqlite3 dev | cut -d " " -f 1 | tr "\n" " ")
-        export packages=$packages$(apt-cache search -n expat | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n zlib | cut -d " " -f 1 | tr "\n" " ")
-        export packages=$packages$(apt-cache search -n c-ares | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n mingw-w64 | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n dpkg-dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n pkg-config | cut -d " " -f 1 | tr "\n" " ")
@@ -59,12 +56,17 @@ jobs:
         export packages=$packages$(apt-cache search -n nettle dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n gcrypt dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n gnutls dev | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n gmp dev | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n glibc | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n unistring dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n p11-kit | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n libssh2 dev | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n libsqlite3 dev | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n expat | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n c-ares | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n libcppunit dev | cut -d " " -f 1 | tr "\n" " ")
 
         sudo aptitude -y install $packages
-        sudo aptitude -y install autopoint automake autotools-dev libtool gettext 
-        sudo aptitude -y install build-essential libelf-dev binutils-dev libdwarf-dev gcc g++ git
 
     - name: Build
       run: |
@@ -117,14 +119,12 @@ jobs:
         # # The following packages have unmet dependencies:...
         sudo apt-get install aptitude
 
-        # export packages=$packages$(apt-cache search -n libcppunit dev | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages“autopoint automake autotools-dev libtool gettext”
+        export packages=$packages“build-essential libelf-dev binutils-dev libdwarf-dev gcc g++ git”
         export packages=$packages$(apt-cache search -n libc6-dev-amd64 | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n libssl dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n libxml2 dev | cut -d " " -f 1 | tr "\n" " ")
-        # export packages=$packages$(apt-cache search -n libsqlite3 dev | cut -d " " -f 1 | tr "\n" " ")
-        # export packages=$packages$(apt-cache search -n expat | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n zlib | cut -d " " -f 1 | tr "\n" " ")
-        # export packages=$packages$(apt-cache search -n c-ares | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n mingw-w64 | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n dpkg-dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n pkg-config | cut -d " " -f 1 | tr "\n" " ")
@@ -136,19 +136,21 @@ jobs:
         export packages=$packages$(apt-cache search -n glibc | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n unistring dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n p11-kit | cut -d " " -f 1 | tr "\n" " ")
-        export packages=$packages$(apt-cache search -n libssh2 dev | cut -d " " -f 1 | tr "\n" " ")
-        
+        # export packages=$packages$(apt-cache search -n libssh2 dev | cut -d " " -f 1 | tr "\n" " ")
+        # export packages=$packages$(apt-cache search -n libsqlite3 dev | cut -d " " -f 1 | tr "\n" " ")
+        # export packages=$packages$(apt-cache search -n expat | cut -d " " -f 1 | tr "\n" " ")
+        # export packages=$packages$(apt-cache search -n c-ares | cut -d " " -f 1 | tr "\n" " ")
+        # export packages=$packages$(apt-cache search -n libcppunit dev | cut -d " " -f 1 | tr "\n" " ")
+
         sudo aptitude -y install $packages
-        sudo aptitude -y install autopoint automake autotools-dev libtool gettext 
-        sudo aptitude -y install build-essential libelf-dev binutils-dev libdwarf-dev gcc g++ git
 
         export HOST=x86_64-w64-mingw32
         export PREFIX=/usr/$HOST
 
         git clone --depth=1 https://github.com/c-ares/c-ares.git tmp
         cd tmp
-        ./buildconf
-        CC=$HOST-gcc CXX=$HOST-g++ ./configure --host=$HOST --prefix=$PREFIX
+        autoreconf -fi
+        CC=$HOST-gcc CXX=$HOST-g++ ./configure --host=$HOST --prefix=$PREFIX --enable-shared=no
         make
         sudo make install
         cd ..
@@ -157,31 +159,39 @@ jobs:
         git clone --depth=1 https://github.com/libexpat/libexpat.git tmp
         cd tmp/expat
         ./buildconf.sh
-        CC=$HOST-gcc CXX=$HOST-g++ ./configure --host=$HOST --prefix=$PREFIX
+        CC=$HOST-gcc CXX=$HOST-g++ ./configure --host=$HOST --prefix=$PREFIX --enable-shared=no
         make
         sudo make install
         cd ../../
         rm -rf tmp
 
-        curl -o tmp.tar.gz https://www.sqlite.org/2021/sqlite-autoconf-3350200.tar.gz
+        curl -o tmp.tar.gz -L https://www.sqlite.org/2021/sqlite-autoconf-3350200.tar.gz
         tar zxvf tmp.tar.gz
         cd sqlite-autoconf-3350200
-        CC=$HOST-gcc CXX=$HOST-g++ ./configure --host=$HOST --prefix=$PREFIX
+        CC=$HOST-gcc CXX=$HOST-g++ ./configure --host=$HOST --prefix=$PREFIX --enable-shared=no
         make
         sudo make install
         cd ../
         rm -rf sqlite-autoconf-3350200 tmp.tar.gz
 
-        curl -o tmp.zip "https://sourceforge.net/code-snapshots/svn/c/cp/cppunit/code/cppunit-code-r606-trunk.zip"
+        curl -o tmp.zip -L "https://sourceforge.net/code-snapshots/svn/c/cp/cppunit/code/cppunit-code-r606-trunk.zip"
         unzip tmp.zip
         cd cppunit-code-r606-trunk/cppunit/
         autoreconf -fi
-        CC=$HOST-gcc CXX=$HOST-g++ ./configure --host=$HOST --prefix=$PREFIX
+        CC=$HOST-gcc CXX=$HOST-g++ ./configure --host=$HOST --prefix=$PREFIX --enable-shared=no
         make
         sudo make install
         cd ../
         rm -rf tmp.zip
 
+        curl -o tmp.tar.gz -L "https://www.libssh2.org/download/libssh2-1.9.0.tar.gz"
+        tar zxvf tmp.tar.gz
+        cd libssh2-1.9.0/
+        CC=$HOST-gcc CXX=$HOST-g++ ./configure --host=$HOST --prefix=$PREFIX --enable-shared=no
+        make
+        sudo make install
+        cd ../
+        rm -rf tmp.tar.gz libssh2-1.9.0
 
     - name: Build
       run: |
@@ -193,10 +203,12 @@ jobs:
         git apply ../patch/*
         autoreconf -i
         
+        # https://github.com/c-ares/c-ares/blob/master/INSTALL.md#important-static-c-ares-usage-note
         ./configure \
             --host=$HOST \
             --prefix=$PREFIX \
             ARIA2_STATIC=yes \
+            CFLAGS="-DCARES_STATICLIB" \
             CPPFLAGS="-I$PREFIX/include" \
             PKG_CONFIG_PATH="$PREFIX/lib/pkgconfig"
 
