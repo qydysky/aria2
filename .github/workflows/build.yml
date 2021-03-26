@@ -146,14 +146,15 @@ jobs:
 
         export HOST=x86_64-w64-mingw32
         export PREFIX=/usr/$HOST
-
+        export pwd=$(pwd)
+        
         git clone --depth=1 https://github.com/c-ares/c-ares.git tmp
         cd tmp
         autoreconf -fi
         CC=$HOST-gcc CXX=$HOST-g++ ./configure --host=$HOST --prefix=$PREFIX --enable-shared=no
         make
         sudo make install
-        cd ..
+        cd $pwd
         rm -rf tmp
 
         git clone --depth=1 https://github.com/libexpat/libexpat.git tmp
@@ -162,7 +163,7 @@ jobs:
         CC=$HOST-gcc CXX=$HOST-g++ ./configure --host=$HOST --prefix=$PREFIX --enable-shared=no
         make
         sudo make install
-        cd ../../
+        cd $pwd
         rm -rf tmp
 
         curl -o tmp.tar.gz -L https://www.sqlite.org/2021/sqlite-autoconf-3350200.tar.gz
@@ -171,7 +172,7 @@ jobs:
         CC=$HOST-gcc CXX=$HOST-g++ ./configure --host=$HOST --prefix=$PREFIX --enable-shared=no
         make
         sudo make install
-        cd ../
+        cd $pwd
         rm -rf sqlite-autoconf-3350200 tmp.tar.gz
 
         curl -o tmp.zip -L "https://sourceforge.net/code-snapshots/svn/c/cp/cppunit/code/cppunit-code-r606-trunk.zip"
@@ -181,8 +182,8 @@ jobs:
         CC=$HOST-gcc CXX=$HOST-g++ ./configure --host=$HOST --prefix=$PREFIX --enable-shared=no
         make
         sudo make install
-        cd ../
-        rm -rf tmp.zip
+        cd $pwd
+        rm -rf tmp.zip cppunit-code-r606-trunk
 
         curl -o tmp.tar.gz -L "https://www.libssh2.org/download/libssh2-1.9.0.tar.gz"
         tar zxvf tmp.tar.gz
@@ -190,7 +191,7 @@ jobs:
         CC=$HOST-gcc CXX=$HOST-g++ ./configure --host=$HOST --prefix=$PREFIX --enable-shared=no
         make
         sudo make install
-        cd ../
+        cd $pwd
         rm -rf tmp.tar.gz libssh2-1.9.0
 
     - name: Build
