@@ -187,7 +187,7 @@ jobs:
         curl -o tmp.tar.gz -L "https://www.openssl.org/source/openssl-1.1.1k.tar.gz"
         tar zxvf tmp.tar.gz
         cd openssl-1.1.1k/
-        ./Configure mingw64 --cross-compile-prefix=$HOST- --prefix=$PREFIX shared
+        ./Configure mingw64 --cross-compile-prefix=$HOST- --prefix=$PREFIX
         make
         sudo make install
         cd $pwd
