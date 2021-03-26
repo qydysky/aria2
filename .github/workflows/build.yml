@@ -184,14 +184,14 @@ jobs:
         cd $pwd
         rm -rf tmp.tar.gz cppunit-1.12.1
 
-        curl -o tmp.tar.gz -L "https://www.libssh2.org/download/libssh2-1.9.0.tar.gz"
+        curl -o tmp.tar.gz -L "https://www.openssl.org/source/openssl-1.1.1k.tar.gz"
         tar zxvf tmp.tar.gz
-        cd libssh2-1.9.0/
-        CC=$HOST-gcc CXX=$HOST-g++ ./configure --host=$HOST --prefix=$PREFIX --enable-shared=no
+        cd openssl-1.1.1k/
+        ./Configure mingw64 --cross-compile-prefix=$HOST- --prefix=$PREFIX shared
         make
         sudo make install
         cd $pwd
-        rm -rf tmp.tar.gz libssh2-1.9.0
+        rm -rf tmp.tar.gz openssl-1.1.1k
 
     - name: Build
       run: |
