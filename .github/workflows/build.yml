@@ -143,11 +143,12 @@ jobs:
         sudo aptitude -y install build-essential libelf-dev binutils-dev libdwarf-dev gcc g++ git
 
         export HOST=x86_64-w64-mingw32
+        export PREFIX=/usr/$HOST
 
         git clone --depth=1 https://github.com/c-ares/c-ares.git tmp
         cd tmp
         ./buildconf
-        ./configure --host=$HOST
+        ./configure --host=$HOST --prefix=$PREFIX
         make
         sudo make install
         cd ..
@@ -156,7 +157,7 @@ jobs:
         git clone --depth=1 https://github.com/libexpat/libexpat.git tmp
         cd tmp/expat
         ./buildconf.sh
-        ./configure --host=$HOST
+        ./configure --host=$HOST --prefix=$PREFIX
         make
         sudo make install
         cd ../../
@@ -165,7 +166,7 @@ jobs:
         curl -o tmp.tar.gz https://www.sqlite.org/2021/sqlite-autoconf-3350200.tar.gz
         tar zxvf tmp.tar.gz
         cd sqlite-autoconf-3350200
-        ./configure --host=$HOST
+        ./configure --host=$HOST --prefix=$PREFIX
         make
         sudo make install
         cd ../
@@ -173,7 +174,7 @@ jobs:
 
         git clone --depth=1 https://github.com/madler/zlib.git tmp  
         cd tmp
-        ./configure --host=$HOST
+        ./configure  --prefix=$PREFIX
         make
         sudo make install
         cd ../
@@ -182,7 +183,7 @@ jobs:
         git clone --depth=1 https://github.com/libssh2/libssh2.git tmp  
         cd tmp
         autoreconf -fi
-        ./configure --host=$HOST
+        ./configure --host=$HOST --prefix=$PREFIX
         make
         sudo make install
         cd ../
@@ -192,7 +193,7 @@ jobs:
         unzip tmp.zip
         cd cppunit-code-r606-trunk/cppunit/
         autoreconf -fi
-        ./configure --host=$HOST
+        ./configure --host=$HOST --prefix=$PREFIX
         make
         sudo make install
         cd ../
