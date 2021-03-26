@@ -121,8 +121,8 @@ jobs:
         export packages=$packages$(apt-cache search -n libc6-dev-amd64 | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n libssl dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n libxml2 dev | cut -d " " -f 1 | tr "\n" " ")
-        export packages=$packages$(apt-cache search -n zlib1g dev | cut -d " " -f 1 | tr "\n" " ")
-        export packages=$packages$(apt-cache search -n libsqlite3 dev | cut -d " " -f 1 | tr "\n" " ")
+        # export packages=$packages$(apt-cache search -n zlib1g dev | cut -d " " -f 1 | tr "\n" " ")
+        # export packages=$packages$(apt-cache search -n libsqlite3 dev | cut -d " " -f 1 | tr "\n" " ")
         # export packages=$packages$(apt-cache search -n expat | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n zlib | cut -d " " -f 1 | tr "\n" " ")
         # export packages=$packages$(apt-cache search -n c-ares | cut -d " " -f 1 | tr "\n" " ")
@@ -161,6 +161,42 @@ jobs:
         sudo make install
         cd ../../
         rm -rf tmp
+
+        curl -o tmp.tar.gz https://www.sqlite.org/2021/sqlite-autoconf-3350200.tar.gz
+        tar zxvf tmp.tar.gz
+        cd sqlite-autoconf-3350200
+        ./configure --host=$HOST
+        make
+        sudo make install
+        cd ../
+        rm -rf sqlite-autoconf-3350200 tmp.tar.gz
+
+        git clone --depth=1 https://github.com/madler/zlib.git tmp  
+        cd tmp
+        ./configure --host=$HOST
+        make
+        sudo make install
+        cd ../
+        rm -rf tmp
+
+        git clone --depth=1 https://github.com/libssh2/libssh2.git tmp  
+        cd tmp
+        autoreconf -fi
+        ./configure --host=$HOST
+        make
+        sudo make install
+        cd ../
+        rm -rf tmp
+
+        curl -o tmp.zip "https://sourceforge.net/code-snapshots/svn/c/cp/cppunit/code/cppunit-code-r606-trunk.zip"
+        unzip tmp.zip
+        cd cppunit-code-r606-trunk/cppunit/
+        autoreconf -fi
+        ./configure --host=$HOST
+        make
+        sudo make install
+        cd ../
+        rm -rf tmp.zip
 
     - name: Build
       run: |
