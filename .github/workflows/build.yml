@@ -43,8 +43,8 @@ jobs:
         # # The following packages have unmet dependencies:...
         sudo apt-get install aptitude
 
-        export packages=$packages"autopoint automake autotools-dev libtool gettext"
-        export packages=$packages"build-essential libelf-dev binutils-dev libdwarf-dev gcc g++ git"
+        export packages=$packages"autopoint automake autotools-dev libtool gettext "
+        export packages=$packages"build-essential libelf-dev binutils-dev libdwarf-dev gcc g++ git "
         export packages=$packages$(apt-cache search -n libc6-dev-amd64 | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n libssl dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n libxml2 dev | cut -d " " -f 1 | tr "\n" " ")
@@ -119,8 +119,8 @@ jobs:
         # # The following packages have unmet dependencies:...
         sudo apt-get install aptitude
 
-        export packages=$packages"autopoint automake autotools-dev libtool gettext"
-        export packages=$packages"build-essential libelf-dev binutils-dev libdwarf-dev gcc g++ git"
+        export packages=$packages"autopoint automake autotools-dev libtool gettext "
+        export packages=$packages"build-essential libelf-dev binutils-dev libdwarf-dev gcc g++ git "
         export packages=$packages$(apt-cache search -n libc6-dev-amd64 | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n libssl dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n libxml2 dev | cut -d " " -f 1 | tr "\n" " ")
