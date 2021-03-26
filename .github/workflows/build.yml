@@ -117,7 +117,7 @@ jobs:
         # # The following packages have unmet dependencies:...
         sudo apt-get install aptitude
 
-        export packages=$packages$(apt-cache search -n libcppunit dev | cut -d " " -f 1 | tr "\n" " ")
+        # export packages=$packages$(apt-cache search -n libcppunit dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n libc6-dev-amd64 | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n libssl dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n libxml2 dev | cut -d " " -f 1 | tr "\n" " ")
@@ -181,24 +181,6 @@ jobs:
         sudo make install
         cd ../
         rm -rf tmp.zip
-
-        # git clone --depth=1 https://github.com/madler/zlib.git tmp  
-        # cd tmp
-        # ./configure  --prefix=$PREFIX
-        # make
-        # sudo make install
-        # cd ../
-        # rm -rf tmp
-
-        # git clone --depth=1 https://github.com/libssh2/libssh2.git tmp  
-        # cd tmp
-        # autoreconf -fi
-        # CC=$HOST-gcc CXX=$HOST-g++ ./configure --host=$HOST --prefix=$PREFIX
-        # make
-        # sudo make install
-        # cd ../
-        # rm -rf tmp
-
 
 
     - name: Build
