@@ -117,7 +117,7 @@ jobs:
         # # The following packages have unmet dependencies:...
         sudo apt-get install aptitude
 
-        # export packages=$packages$(apt-cache search -n libcppunit dev | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n libcppunit dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n libc6-dev-amd64 | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n libssl dev | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n libxml2 dev | cut -d " " -f 1 | tr "\n" " ")
@@ -148,7 +148,7 @@ jobs:
         git clone --depth=1 https://github.com/c-ares/c-ares.git tmp
         cd tmp
         ./buildconf
-        ./configure --host=$HOST --prefix=$PREFIX
+        CC=$HOST-gcc CXX=$HOST-g++ ./configure --host=$HOST --prefix=$PREFIX
         make
         sudo make install
         cd ..
@@ -157,7 +157,7 @@ jobs:
         git clone --depth=1 https://github.com/libexpat/libexpat.git tmp
         cd tmp/expat
         ./buildconf.sh
-        ./configure --host=$HOST --prefix=$PREFIX
+        CC=$HOST-gcc CXX=$HOST-g++ ./configure --host=$HOST --prefix=$PREFIX
         make
         sudo make install
         cd ../../
@@ -166,7 +166,7 @@ jobs:
         curl -o tmp.tar.gz https://www.sqlite.org/2021/sqlite-autoconf-3350200.tar.gz
         tar zxvf tmp.tar.gz
         cd sqlite-autoconf-3350200
-        ./configure --host=$HOST --prefix=$PREFIX
+        CC=$HOST-gcc CXX=$HOST-g++ ./configure --host=$HOST --prefix=$PREFIX
         make
         sudo make install
         cd ../
@@ -174,30 +174,30 @@ jobs:
 
         git clone --depth=1 https://github.com/madler/zlib.git tmp  
         cd tmp
-        ./configure  --prefix=$PREFIX
+        CC=$HOST-gcc CXX=$HOST-g++ ./configure  --prefix=$PREFIX
         make
         sudo make install
         cd ../
         rm -rf tmp
 
-        git clone --depth=1 https://github.com/libssh2/libssh2.git tmp  
-        cd tmp
-        autoreconf -fi
-        ./configure --host=$HOST --prefix=$PREFIX
-        make
-        sudo make install
-        cd ../
-        rm -rf tmp
+        # git clone --depth=1 https://github.com/libssh2/libssh2.git tmp  
+        # cd tmp
+        # autoreconf -fi
+        # CC=$HOST-gcc CXX=$HOST-g++ ./configure --host=$HOST --prefix=$PREFIX
+        # make
+        # sudo make install
+        # cd ../
+        # rm -rf tmp
 
-        curl -o tmp.zip "https://sourceforge.net/code-snapshots/svn/c/cp/cppunit/code/cppunit-code-r606-trunk.zip"
-        unzip tmp.zip
-        cd cppunit-code-r606-trunk/cppunit/
-        autoreconf -fi
-        ./configure --host=$HOST --prefix=$PREFIX
-        make
-        sudo make install
-        cd ../
-        rm -rf tmp.zip
+        # curl -o tmp.zip "https://sourceforge.net/code-snapshots/svn/c/cp/cppunit/code/cppunit-code-r606-trunk.zip"
+        # unzip tmp.zip
+        # cd cppunit-code-r606-trunk/cppunit/
+        # autoreconf -fi
+        # CC=$HOST-gcc CXX=$HOST-g++ ./configure --host=$HOST --prefix=$PREFIX
+        # make
+        # sudo make install
+        # cd ../
+        # rm -rf tmp.zip
 
     - name: Build
       run: |
