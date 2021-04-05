@@ -39,6 +39,7 @@ jobs:
 
     - name: Env
       run: |
+        sudo apt update
         # # fix:
         # # The following packages have unmet dependencies:...
         sudo apt-get install aptitude
@@ -116,6 +117,7 @@ jobs:
 
     - name: Env
       run: |
+        sudo apt update
         # # fix:
         # # The following packages have unmet dependencies:...
         sudo apt-get install aptitude
