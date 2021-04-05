@@ -72,7 +72,7 @@ jobs:
       run: |
         git clone --depth=1 https://github.com/aria2/aria2.git aria2_git
         cd aria2_git
-        git apply ../patch/*
+        git apply ../patch/*.patch
 
         autoreconf -i
         ./configure \
@@ -192,7 +192,7 @@ jobs:
 
         git clone --depth=1 https://github.com/aria2/aria2.git aria2_git
         cd aria2_git
-        git apply ../patch/*
+        git apply ../patch/*.patch
         autoreconf -i
         
         # https://github.com/c-ares/c-ares/blob/master/INSTALL.md#important-static-c-ares-usage-note
