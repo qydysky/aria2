@@ -169,7 +169,7 @@ jobs:
         cd $pwd
         rm -rf tmp
 
-        curl -o tmp.tar.gz -L https://www.sqlite.org/2021/sqlite-autoconf-3350200.tar.gz
+        curl -o tmp.tar.gz -L https://www.sqlite.org/2021/sqlite-autoconf-3350500.tar.gz
         tar zxvf tmp.tar.gz
         cd sqlite-autoconf-3350200
         CC=$HOST-gcc CXX=$HOST-g++ ./configure --host=$HOST --prefix=$PREFIX --enable-shared=no
