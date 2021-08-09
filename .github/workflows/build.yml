@@ -68,7 +68,7 @@ jobs:
       run: zip -q -r ubuntu.zip *
       
     - name: Release
-      uses: softprops/action-gh-release@v0.1.10
+      uses: softprops/action-gh-release@v0.1.7
       with:
         tag_name: ${{ github.sha }}
         files: ubuntu.zip
@@ -183,7 +183,7 @@ jobs:
       run: zip -q -r windows.zip *
       
     - name: Release
-      uses: softprops/action-gh-release@v0.1.10
+      uses: softprops/action-gh-release@v0.1.7
       with:
         tag_name: ${{ github.sha }}
         files: windows.zip
