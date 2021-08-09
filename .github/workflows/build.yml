@@ -8,32 +8,8 @@ on:
     - '**'
 
 jobs:
-
-  Release_Drafter:
-    name: Release_Drafter
-    runs-on: ubuntu-latest
-    steps:
-
-    - name: Release Drafter
-      # You may pin to the exact commit or the version.
-      # uses: release-drafter/release-drafter@06d4616a80cd7c09ea3cf12214165ad6c1859e67
-      id: create_release
-      uses: release-drafter/release-drafter@v5.11.0
-      env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: set upload_url
-      id: set_upload_url
-      uses: noobly314/share-data@v1
-      with:
-        share-id: release_url
-        mode: set
-        key: url
-        value: ${{ steps.create_release.outputs.upload_url }}
-
   u-build:
     name: build_ubuntu
-    needs: Release_Drafter
     runs-on: ubuntu-latest
     steps:
     - name: Check out code
@@ -90,28 +66,14 @@ jobs:
 
     - name: zip
       run: zip -q -r ubuntu.zip *
-    
-    - name: get upload_url
-      id: get_upload_url
-      uses: noobly314/share-data@v1
+      
+    - name: Release
+      uses: softprops/action-gh-release@v0.1.10
       with:
-        share-id: release_url
-        mode: get
-        key: url
-
-    - name: Upload a Release Asset
-      uses: actions/upload-release-asset@v1.0.2
-      env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.get_upload_url.outputs.data }}
-        asset_path: ./ubuntu.zip
-        asset_name: ubuntu_${{ github.sha }}.zip
-        asset_content_type: application/zip
+        files: ubuntu.zip
 
   w-build:
     name: build_windows
-    needs: Release_Drafter
     runs-on: ubuntu-latest
     steps:
     - name: Check out code
@@ -219,20 +181,7 @@ jobs:
     - name: Zip
       run: zip -q -r windows.zip *
       
-    - name: Get upload_url
-      id: get_upload_url
-      uses: noobly314/share-data@v1
+    - name: Release
+      uses: softprops/action-gh-release@v0.1.10
       with:
-        share-id: release_url
-        mode: get
-        key: url
-
-    - name: Upload a Release Asset
-      uses: actions/upload-release-asset@v1.0.2
-      env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.get_upload_url.outputs.data }}
-        asset_path: ./windows.zip
-        asset_name: windows_${{ github.sha }}.zip
-        asset_content_type: application/zip
+        files: windows.zip
