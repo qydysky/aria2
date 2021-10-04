@@ -67,14 +67,15 @@ jobs:
     - name: zip
       run: zip -q -r ubuntu.zip *
       
-    - name: Set Time
+    - name: Set Release Name
       run: |
         echo "TIME=$(date +"%Y-%m-%d")" >> $GITHUB_ENV
+        echo "HASH=$(git rev-parse --short "$GITHUB_SHA")" >> $GITHUB_ENV
         
     - name: Release
-      uses: softprops/action-gh-release@59c3b4891632ff9a897f99a91d7bc557467a3a22
+      uses: softprops/action-gh-release@v1
       with:
-        tag_name: AutoBuild-${{ env.TIME }}
+        tag_name: AutoBuild-${{ env.TIME }}-${{ env.HASH }}
         files: ubuntu.zip
 
   w-build:
@@ -186,12 +187,13 @@ jobs:
     - name: Zip
       run: zip -q -r windows.zip *
     
-    - name: Set Time
+    - name: Set Release Name
       run: |
         echo "TIME=$(date +"%Y-%m-%d")" >> $GITHUB_ENV
+        echo "HASH=$(git rev-parse --short "$GITHUB_SHA")" >> $GITHUB_ENV
         
     - name: Release
-      uses: softprops/action-gh-release@59c3b4891632ff9a897f99a91d7bc557467a3a22
+      uses: softprops/action-gh-release@v1
       with:
-        tag_name: AutoBuild-${{ env.TIME }}
+        tag_name: AutoBuild-${{ env.TIME }}-${{ env.HASH }}
         files: windows.zip
