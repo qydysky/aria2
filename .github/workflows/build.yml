@@ -44,9 +44,17 @@ jobs:
         export packages=$packages$(apt-cache search -n expat | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n c-ares | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n libcppunit dev | cut -d " " -f 1 | tr "\n" " ")
-        export packages=$packages$(apt-cache search -n c-ares dev | cut -d " " -f 1 | tr "\n" " ")
 
         sudo aptitude -y install $packages
+
+        git clone --depth=1 https://github.com/c-ares/c-ares.git tmp
+        cd tmp
+        autoreconf -fi
+        CC=$HOST-gcc CXX=$HOST-g++ ./configure --host=$HOST --prefix=$PREFIX --enable-shared=no  --disable-shared
+        make
+        sudo make install
+        cd $pwd
+        rm -rf tmp
 
     - name: Build
       run: |
@@ -125,7 +133,7 @@ jobs:
         git clone --depth=1 https://github.com/c-ares/c-ares.git tmp
         cd tmp
         autoreconf -fi
-        CC=$HOST-gcc CXX=$HOST-g++ ./configure --host=$HOST --prefix=$PREFIX --enable-shared=no
+        CC=$HOST-gcc CXX=$HOST-g++ ./configure --host=$HOST --prefix=$PREFIX --enable-shared=no  --disable-shared
         make
         sudo make install
         cd $pwd
