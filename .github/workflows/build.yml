@@ -51,6 +51,7 @@ jobs:
         
         git clone --depth=1 https://github.com/c-ares/c-ares.git tmp
         cd tmp
+        autoreconf -i
         ./configure --disable-shared
         make
         sudo make install
