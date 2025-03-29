@@ -44,6 +44,7 @@ jobs:
         export packages=$packages$(apt-cache search -n expat | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n c-ares | cut -d " " -f 1 | tr "\n" " ")
         export packages=$packages$(apt-cache search -n libcppunit dev | cut -d " " -f 1 | tr "\n" " ")
+        export packages=$packages$(apt-cache search -n c-ares dev | cut -d " " -f 1 | tr "\n" " ")
 
         sudo aptitude -y install $packages
 
