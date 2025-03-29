@@ -155,7 +155,7 @@ jobs:
         ./configure
         make amalgamation-tarball
         cd mkpkg_tmp_dir/sqlite-autoconf*
-        CC=$HOST-gcc CXX=$HOST-g++ ./configure --host=$HOST --prefix=$PREFIX --enable-shared=no
+        CC=$HOST-gcc CXX=$HOST-g++ ./configure --host=$HOST --prefix=$PREFIX
         make
         sudo make install
         cd $pwd
