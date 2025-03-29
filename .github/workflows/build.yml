@@ -135,7 +135,7 @@ jobs:
         git clone --depth=1 https://github.com/c-ares/c-ares.git tmp
         cd tmp
         autoreconf -fi
-        CC=$HOST-gcc CXX=$HOST-g++ ./configure --host=$HOST --prefix=$PREFIX --enable-shared=no  --disable-shared
+        CC=$HOST-gcc CXX=$HOST-g++ ./configure --host=$HOST --prefix=$PREFIX --disable-shared
         make
         sudo make install
         cd $pwd
